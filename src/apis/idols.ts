@@ -1,10 +1,11 @@
-import type { GetIdolsParams, IdolList } from '@/types/idols.interface';
+import type { IdolList } from '@/types/idols.interface';
+import { type GetIdolsParams } from '@/types/idols.interface';
 
 import instance from './axios';
 
-export const getIdols = async (params?: GetIdolsParams) => {
+export const getIdols = async (params: GetIdolsParams) => {
   try {
-    const res = await instance.get('/idols', { params: params });
+    const res = await instance.get<IdolList>('/idols', { params: params });
     const { data } = res;
 
     return data;

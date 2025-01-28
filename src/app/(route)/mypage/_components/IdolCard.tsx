@@ -1,18 +1,23 @@
 import Image from 'next/image';
 
+import { cn } from '@/lib/styleUtils';
+
 import type { IdolData } from '@/types/idols.interface';
 
 interface IdolCardProps {
   info: IdolData;
+  padding: number;
 }
 
-const IdolCard = ({ info }: IdolCardProps) => {
+const IdolCard = ({ info, padding = 5 }: IdolCardProps) => {
   const { profilePicture, name, group } = info;
 
   return (
     <div className='relative grid flex-shrink-0 gap-2'>
       <div
-        className={`relative aspect-square h-full w-full cursor-pointer overflow-hidden rounded-full border-[1.3px] border-[#f77063]`}
+        className={cn(
+          'relative aspect-square h-full w-full cursor-pointer overflow-hidden rounded-full border-[1.3px] border-brand-red',
+        )}
         // style={{ padding: `${padding ?? 5}px` }}
         // onClick={handleCardClick}
       >
@@ -23,6 +28,10 @@ const IdolCard = ({ info }: IdolCardProps) => {
           fill
           priority
           sizes='max-width:100%'
+          quality={1}
+          style={{
+            padding: padding ? `${padding}px` : '5px',
+          }}
         />
         {/* {isSelected && isAddingMode && (
           <div
