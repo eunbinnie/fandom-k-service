@@ -48,7 +48,7 @@ export default function RootLayout({
           height={364}
           className='absolute -z-[1]'
         />
-        <main>{children}</main>
+        {children}
       </body>
     </html>
   );
