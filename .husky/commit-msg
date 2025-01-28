@@ -1,0 +1,10 @@
+#!/bin/sh
+set -e
+
+# 커밋 메시지 유효성 검사
+if ! yarn commitlint "${1}"; then
+    echo "❌ 커밋 메시지가 컨벤션에 맞지 않습니다."
+    exit 1
+fi
+
+echo "✅ 커밋 메시지가 확인되었습니다."

@@ -1,0 +1,31 @@
+#!/usr/bin/env sh
+# 엄격한 오류 처리를 위한 옵션 추가
+set -e
+
+echo '코드를 커밋하기 전에 컨벤션을 확인하고 있습니다.'
+
+# Prettier 검사
+echo "코드 스타일을 검사합니다."
+if ! yarn prettier:check; then
+    echo '코드 스타일에 문제가 발견되어 prettier format을 실행합니다.'
+    yarn prettier:format
+    git add .
+    echo '코드 스타일이 수정되었습니다.'
+    git commit --amend --no-edit
+    echo '커밋이 성공적으로 수정되었습니다.'
+fi
+
+# ESLint 검사
+echo 'ESLint를 검사합니다.'
+if ! yarn eslint:check; then
+    echo '❌ ESLint 검사 실패: ESLint 에러가 감지되었습니다.'
+    exit 1
+fi
+
+# lint-staged 실행
+if ! npx lint-staged; then
+    echo '❌ lint-staged 실행 실패'
+    exit 1
+fi
+
+echo '✅ 모든 검사가 성공적으로 통과되었습니다!'
