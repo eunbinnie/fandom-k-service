@@ -5,6 +5,8 @@ import Image from 'next/image';
 
 import { cn } from '@/lib/styleUtils';
 
+import Providers from './providers';
+
 const pretendard = localFont({
   src: [
     {
@@ -48,7 +50,7 @@ export default function RootLayout({
           height={364}
           className='absolute -z-[1]'
         />
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
