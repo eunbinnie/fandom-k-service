@@ -5,27 +5,38 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-function makeQueryClient() {
+const makeQueryClient = () => {
   return new QueryClient({});
-}
+};
 
 let browserQueryClient: QueryClient | undefined = undefined;
 
-function getQueryClient() {
+const getQueryClient = () => {
   if (isServer) {
+    // Server: always make a new query client
     return makeQueryClient();
   } else {
-    if (!browserQueryClient) browserQueryClient = makeQueryClient();
+    if (!browserQueryClient) {
+      browserQueryClient = makeQueryClient();
+    }
 
     return browserQueryClient;
   }
-}
+};
 
-export default function Providers({ children }: { children: React.ReactNode }) {
+const Providers = ({ children }: React.PropsWithChildren) => {
   const queryClient = getQueryClient();
 
   return (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    <QueryClientProvider client={queryClient}>
+      {children}
+      {process.env.NEXT_PUBLIC_RUN_MODE !== 'production' && (
+        <ReactQueryDevtools initialIsOpen={false} />
+      )}
+    </QueryClientProvider>
   );
-}
+};
+
+export default Providers;

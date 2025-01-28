@@ -41,7 +41,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='ko' className={cn(pretendard.variable)}>
-      <body className='relative mx-auto bg-[#02000e] text-white-pure'>
+      <body className='relative mx-auto bg-black-primary font-pretendard text-white-pure'>
         <Image
           src={'/icons/blue-graphic.svg'}
           alt='graphic'

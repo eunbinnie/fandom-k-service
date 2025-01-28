@@ -22,7 +22,7 @@ const config: Config = {
         gray: {
           dark: '#67666e',
           medium: '#828282',
-          light: '#a3a5a8',
+          light: '#f6f6f8',
         },
         white: {
           primary: '#f7f7f8',
@@ -31,7 +31,7 @@ const config: Config = {
         },
       },
       fontFamily: {
-        notosans: ['var(--font-pretendard)', ...defaultTheme.fontFamily.sans],
+        pretendard: ['var(--font-pretendard)', ...defaultTheme.fontFamily.sans],
       },
       fontSize: {
         '2xs': ['12px', '1.5'],
@@ -41,7 +41,8 @@ const config: Config = {
         base: ['16px', '1.6'],
         lg: ['18px', 'normal'],
         xl: ['20px', '1.08'],
-        '2xl': ['26px', 'normal'],
+        '2xl': ['24px', '1.08'],
+        '3xl': ['26px', 'normal'],
       },
     },
   },

@@ -1,6 +1,8 @@
+import IdolListSection from './_components/IdolListSection';
+
 const MyPage = () => {
   return (
-    <div className='py-[75px] sm:py-[15px] sm:pb-[210px] sm:pt-[25px] md:pb-[80px] md:pt-[25px]'>
+    <div className='container py-[75px] sm:py-[15px] sm:pb-[210px] sm:pt-[25px] md:pb-[80px] md:pt-[25px]'>
       {/* 관심있는 아이돌 */}
       {/* <section>
         <h1 className='mb-8 text-2xl font-bold leading-[1.08] text-[#f6f6f8] sm:mb-6 sm:text-xl sm:leading-[1.3] md:mb-4 md:text-base md:leading-[1.6]'>
@@ -18,6 +20,7 @@ const MyPage = () => {
         )}
       </section> */}
       <hr className='my-10 border-white-pure opacity-10 sm:my-8' />
+      <IdolListSection />
       {/* 아이돌 목록 */}
       {/* <section>
         <h1 className='mb-8 text-2xl font-bold leading-[1.08] text-[#f6f6f8] sm:mb-6 sm:text-xl sm:leading-[1.3] md:mb-4 md:text-base md:leading-[1.6]'>
