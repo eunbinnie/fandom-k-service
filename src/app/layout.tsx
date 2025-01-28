@@ -1,5 +1,7 @@
+import '@/styles/globals.css';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
+import Image from 'next/image';
 
 import { cn } from '@/lib/styleUtils';
 
@@ -37,7 +39,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='ko' className={cn(pretendard.variable)}>
-      <body>{children}</body>
+      <body className='relative mx-auto bg-[#02000e] text-white-pure'>
+        <Image
+          src={'/icons/blue-graphic.svg'}
+          alt='graphic'
+          priority
+          width={225}
+          height={364}
+          className='absolute -z-[1]'
+        />
+        <main>{children}</main>
+      </body>
     </html>
   );
 }

@@ -12,21 +12,22 @@ const config: Config = {
     extend: {
       colors: {
         brand: {
-          orange: 'var(--brand-orange)',
-          pink: 'var(--brand-pink)',
+          orange: '#f96d69',
+          pink: '#fe5493',
         },
         black: {
-          primary: 'var(--black-primary)',
-          secondary: 'var(--black-secondary)',
+          primary: '#02000e',
+          secondary: '#181d26',
         },
         gray: {
-          dark: 'var(--gray-dark)',
-          medium: 'var(--gray-medium)',
-          light: 'var(--gray-light)',
+          dark: '#67666e',
+          medium: '#828282',
+          light: '#a3a5a8',
         },
         white: {
-          primary: 'var(--white-primary)',
-          secondary: 'var(--white-secondary)',
+          primary: '#f7f7f8',
+          secondary: '#8c92ab',
+          pure: '#fff',
         },
       },
       fontFamily: {
