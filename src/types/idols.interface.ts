@@ -1,5 +1,5 @@
 export interface GetIdolsParams {
-  cursor: number;
+  cursor?: number;
   pageSize: number;
 }
 

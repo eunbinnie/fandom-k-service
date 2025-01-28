@@ -23,6 +23,7 @@ const IdolCard = ({ info }: IdolCardProps) => {
           fill
           priority
           sizes='max-width:100%'
+          quality={1}
         />
         {/* {isSelected && isAddingMode && (
           <div

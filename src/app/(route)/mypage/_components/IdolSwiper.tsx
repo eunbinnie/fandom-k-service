@@ -1,13 +1,30 @@
-import { Swiper } from 'swiper/react';
+import { getIdols } from '@/apis/idols';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 import type { IdolList } from '@/types/idols.interface';
+import { type IdolData } from '@/types/idols.interface';
 
-interface ISwiperData {
-  isLoading: boolean;
-  data: IdolList;
+import IdolCard from './IdolCard';
+
+interface IdolSwiperProps {
+  pageSize: number;
 }
 
-const IdolSwiper = ({ isLoading, data }: ISwiperData) => {
+const IdolSwiper = ({ pageSize }: IdolSwiperProps) => {
+  // const { data, isLoading, isSuccess } = useQuery({
+  //   queryKey: ['idols', params],
+  //   queryFn: () => getIdols(params),
+  // });
+  const { data, fetchNextPage, hasNextPage, isFetching, hasPreviousPage } =
+    useInfiniteQuery<IdolList>({
+      queryKey: ['idols'],
+      queryFn: ({ pageParam = 0 }) =>
+        getIdols({ cursor: pageParam as number, pageSize: pageSize }),
+      initialPageParam: 0,
+      getNextPageParam: (lastPage) => lastPage.nextCursor ?? false,
+    });
+
   return (
     <div className='relative w-full'>
       <Swiper
@@ -30,6 +47,15 @@ const IdolSwiper = ({ isLoading, data }: ISwiperData) => {
         // }}
         // modules={[Navigation]}
       >
+        <SwiperSlide>
+          {data?.pages.map((page, pageIndex) => (
+            <div key={pageIndex} className='idol-list'>
+              {page.list.map((idol: IdolData) => (
+                <IdolCard key={idol.id} info={idol} />
+              ))}
+            </div>
+          ))}
+        </SwiperSlide>
         {/* {idolPageData.length === 0 ? (
           isLoading ? (
             <div>
@@ -59,24 +85,24 @@ const IdolSwiper = ({ isLoading, data }: ISwiperData) => {
         )} */}
       </Swiper>
 
-      {/* {Boolean(swiperIndex) && (
-        <Arrow
+      {hasPreviousPage && (
+        <button
           className='swiper-button-prev'
-          onClick={prevPageData}
-          imgSrc={leftArrow}
-          position='left'
-          alt='이전'
+          // onClick={prevPageData}
+          // imgSrc={leftArrow}
+          // position='left'
+          // alt='이전'
         />
       )}
-      {nextCursor && (
-        <Arrow
+      {hasNextPage && (
+        <button
           className='swiper-button-next'
-          onClick={() => swiperRef.slideNext()}
-          imgSrc={rightArrow}
-          position='right'
-          alt='다음'
+          // onClick={() => swiperRef.slideNext()}
+          // imgSrc={rightArrow}
+          // position='right'
+          // alt='다음'
         />
-      )} */}
+      )}
     </div>
   );
 };
