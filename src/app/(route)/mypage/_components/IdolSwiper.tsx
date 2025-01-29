@@ -1,9 +1,16 @@
+'use client';
+
+import { useRef, useState } from 'react';
+
 import { getIdols } from '@/apis/idols';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import ArrowLeft from 'public/icons/arrow-left.svg';
 import ArrowRight from 'public/icons/arrow-right.svg';
+import type { Swiper as SwiperClass } from 'swiper';
+import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
 
 import type { IdolList } from '@/types/idols.interface';
 import { type IdolData } from '@/types/idols.interface';
@@ -15,17 +22,17 @@ interface IdolSwiperProps {
 }
 
 const IdolSwiper = ({ pageSize }: IdolSwiperProps) => {
-  // const { data, isLoading, isSuccess } = useQuery({
-  //   queryKey: ['idols', params],
-  //   queryFn: () => getIdols(params),
-  // });
-  const { data, fetchNextPage, hasNextPage, isFetching, hasPreviousPage } =
+  const [activeIndex, setActiveIndex] = useState(0);
+  const swiperRef = useRef<SwiperClass | null>(null);
+  const prevRef = useRef(null);
+  const nextRef = useRef(null);
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteQuery<IdolList>({
       queryKey: ['idols'],
       queryFn: ({ pageParam = 0 }) =>
-        getIdols({ cursor: pageParam as number, pageSize: pageSize }),
+        getIdols({ cursor: Number(pageParam), pageSize: pageSize }),
       initialPageParam: 0,
-      getNextPageParam: (lastPage) => lastPage.nextCursor ?? false,
+      getNextPageParam: (lastPage) => lastPage.nextCursor,
     });
 
   return (
@@ -36,72 +43,42 @@ const IdolSwiper = ({ pageSize }: IdolSwiperProps) => {
         observer={true}
         observeParents={true}
         observeSlideChildren={true}
-        // onSwiper={(swiper) => {
-        //   setSwiperRef(swiper);
-        //   setSwiperIndex(swiper.activeIndex);
-        // }}
-        // onSlideChange={(swiper) => {
-        //   setSwiperIndex(swiper.activeIndex);
-        //   handleSlideChange(swiper);
-        // }}
-        // navigation={{
-        //   prevEl: '.swiper-button-prev',
-        //   nextEl: '.swiper-button-next',
-        // }}
-        // modules={[Navigation]}
+        onSwiper={(swiper) => (swiperRef.current = swiper)}
+        onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
+        navigation={{
+          prevEl: prevRef.current,
+          nextEl: nextRef.current,
+        }}
+        modules={[Navigation]}
       >
-        <SwiperSlide>
-          {data?.pages.map((page, pageIndex) => (
-            <div key={pageIndex} className='idol-list'>
-              {page.list.map((idol: IdolData) => (
-                <IdolCard key={idol.id} info={idol} padding={6.48} />
-              ))}
-            </div>
-          ))}
-        </SwiperSlide>
-        {/* {idolPageData.length === 0 ? (
-          isLoading ? (
-            <div>
-              로딩중
-            </div>
-          ) : null
-        ) : (
-          idolPageData?.map((slideData, slideIndex) => (
-            <div className='swiper-slide' key={slideIndex}>
-              {isLoading ? (
-                <IdolListCardSkeleton count={dataCount} />
+        {data?.pages.map((page, idx) => (
+          <SwiperSlide key={idx}>
+            <div className='idol-list'>
+              {isFetchingNextPage ? (
+                <div>로딩 중</div>
               ) : (
-                <div className='grid w-full grid-cols-8 grid-rows-2 gap-x-[22px] gap-y-[31px] px-0 sm:grid-cols-6 sm:gap-x-[24px] sm:px-14 md:grid-cols-4 lg:grid-cols-3'>
-                  {slideData.list.map((idol) => (
-                    <IdolCard
-                      key={idol.id}
-                      info={idol}
-                      padding='6.48'
-                      chooseIdol={() => handleClickIdolList(idol)}
-                      isSelected={selectedIdols.includes(idol.id)}
-                    />
+                <>
+                  {page.list.map((idol: IdolData) => (
+                    <IdolCard key={idol.id} info={idol} padding={6.48} />
                   ))}
-                </div>
+                </>
               )}
             </div>
-          ))
-        )} */}
+          </SwiperSlide>
+        ))}
       </Swiper>
 
-      {hasPreviousPage && (
-        <button
-          className='swiper-button-prev swiper-arrow swiper-left'
-          // onClick={prevPageData}
-          // position='left'
-        >
+      {/* TODO arrow button 480px이하에서 언마운트 */}
+      {activeIndex > 0 && (
+        <button ref={prevRef} className='swiper-arrow swiper-left'>
           <Image src={ArrowLeft} alt='이전' width={29} height={135} priority />
         </button>
       )}
       {hasNextPage && (
         <button
-          className='swiper-button-next swiper-arrow swiper-right'
-          // onClick={() => swiperRef.slideNext()}
-          // position='right'
+          ref={nextRef}
+          className='swiper-arrow swiper-right'
+          onClick={() => fetchNextPage()}
         >
           <Image src={ArrowRight} alt='다음' width={29} height={135} priority />
         </button>
