@@ -5,6 +5,8 @@ import Image from 'next/image';
 
 import { cn } from '@/lib/styleUtils';
 
+import Providers from './providers';
+
 const pretendard = localFont({
   src: [
     {
@@ -39,7 +41,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='ko' className={cn(pretendard.variable)}>
-      <body className='relative mx-auto bg-[#02000e] text-white-pure'>
+      <body className='relative mx-auto bg-black-primary font-pretendard text-white-pure'>
         <Image
           src={'/icons/blue-graphic.svg'}
           alt='graphic'
@@ -48,7 +50,7 @@ export default function RootLayout({
           height={364}
           className='absolute -z-[1]'
         />
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
