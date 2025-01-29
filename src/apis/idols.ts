@@ -5,7 +5,7 @@ import instance from './axios';
 
 export const getIdols = async (params: GetIdolsParams) => {
   try {
-    const res = await instance.get<IdolList>('/idols', { params: params });
+    const res = await instance.get<IdolList>('/api/idols', { params: params });
     const { data } = res;
 
     return data;

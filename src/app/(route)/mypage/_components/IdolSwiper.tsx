@@ -51,10 +51,6 @@ const IdolSwiper = ({ pageSize }: IdolSwiperProps) => {
         observeSlideChildren={true}
         onSwiper={(swiper) => (swiperRef.current = swiper)}
         onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
-        navigation={{
-          prevEl: prevRef.current,
-          nextEl: nextRef.current,
-        }}
         modules={[Navigation]}
       >
         {data?.pages.map((page, idx) => (
