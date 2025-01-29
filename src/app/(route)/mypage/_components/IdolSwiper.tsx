@@ -1,5 +1,8 @@
 import { getIdols } from '@/apis/idols';
 import { useInfiniteQuery } from '@tanstack/react-query';
+import Image from 'next/image';
+import ArrowLeft from 'public/icons/arrow-left.svg';
+import ArrowRight from 'public/icons/arrow-right.svg';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import type { IdolList } from '@/types/idols.interface';
@@ -87,21 +90,21 @@ const IdolSwiper = ({ pageSize }: IdolSwiperProps) => {
 
       {hasPreviousPage && (
         <button
-          className='swiper-button-prev'
+          className='swiper-button-prev swiper-arrow swiper-left'
           // onClick={prevPageData}
-          // imgSrc={leftArrow}
           // position='left'
-          // alt='이전'
-        />
+        >
+          <Image src={ArrowLeft} alt='이전' width={29} height={135} priority />
+        </button>
       )}
       {hasNextPage && (
         <button
-          className='swiper-button-next'
+          className='swiper-button-next swiper-arrow swiper-right'
           // onClick={() => swiperRef.slideNext()}
-          // imgSrc={rightArrow}
           // position='right'
-          // alt='다음'
-        />
+        >
+          <Image src={ArrowRight} alt='다음' width={29} height={135} priority />
+        </button>
       )}
     </div>
   );

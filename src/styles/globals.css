@@ -34,6 +34,26 @@
       grid-template-columns: repeat(3, 1fr);
     }
   }
+
+  .swiper-arrow {
+    @apply absolute top-1/2 -translate-y-1/2;
+  }
+
+  .swiper-left {
+    left: -61px;
+
+    @media only screen and (max-width: 1370px) {
+      left: 0;
+    }
+  }
+
+  .swiper-right {
+    right: -61px;
+
+    @media only screen and (max-width: 1370px) {
+      right: 0;
+    }
+  }
 }
 
 @layer components {
