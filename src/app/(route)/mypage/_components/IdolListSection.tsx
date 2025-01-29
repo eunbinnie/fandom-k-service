@@ -15,7 +15,9 @@ const IdolListSection = () => {
   return (
     <section>
       <h2 className='title'>관심 있는 아이돌을 추가해보세요.</h2>
-      <IdolSwiper pageSize={pageSize} />
+      <div className='mt-4 sm:mt-14 lg:mt-8'>
+        <IdolSwiper pageSize={pageSize} />
+      </div>
     </section>
   );
 };
