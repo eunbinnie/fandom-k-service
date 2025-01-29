@@ -26,6 +26,7 @@ const IdolSwiper = ({ pageSize }: IdolSwiperProps) => {
   const swiperRef = useRef<SwiperClass | null>(null);
   const prevRef = useRef(null);
   const nextRef = useRef(null);
+
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteQuery<IdolList>({
       queryKey: ['idols'],
@@ -34,6 +35,11 @@ const IdolSwiper = ({ pageSize }: IdolSwiperProps) => {
       initialPageParam: 0,
       getNextPageParam: (lastPage) => lastPage.nextCursor,
     });
+
+  const isLastSlide =
+    !hasNextPage &&
+    swiperRef.current?.slides &&
+    activeIndex + 1 === swiperRef.current.slides.length;
 
   return (
     <div className='relative w-full'>
@@ -70,11 +76,15 @@ const IdolSwiper = ({ pageSize }: IdolSwiperProps) => {
 
       {/* TODO arrow button 480px이하에서 언마운트 */}
       {activeIndex > 0 && (
-        <button ref={prevRef} className='swiper-arrow swiper-left'>
+        <button
+          ref={prevRef}
+          className='swiper-arrow swiper-left'
+          onClick={() => swiperRef.current?.slidePrev()}
+        >
           <Image src={ArrowLeft} alt='이전' width={29} height={135} priority />
         </button>
       )}
-      {hasNextPage && (
+      {!isLastSlide && (
         <button
           ref={nextRef}
           className='swiper-arrow swiper-right'
