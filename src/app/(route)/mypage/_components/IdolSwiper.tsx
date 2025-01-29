@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { getIdols } from '@/apis/idols';
 import { useInfiniteQuery } from '@tanstack/react-query';
@@ -23,11 +23,12 @@ interface IdolSwiperProps {
 
 const IdolSwiper = ({ pageSize }: IdolSwiperProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [slideCount, setSlideCount] = useState(0);
   const swiperRef = useRef<SwiperClass | null>(null);
   const prevRef = useRef(null);
   const nextRef = useRef(null);
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetched } =
     useInfiniteQuery<IdolList>({
       queryKey: ['idols'],
       queryFn: ({ pageParam = 0 }) =>
@@ -36,10 +37,30 @@ const IdolSwiper = ({ pageSize }: IdolSwiperProps) => {
       getNextPageParam: (lastPage) => lastPage.nextCursor,
     });
 
-  const isLastSlide =
-    !hasNextPage &&
-    swiperRef.current?.slides &&
-    activeIndex + 1 === swiperRef.current.slides.length;
+  useEffect(() => {
+    if (swiperRef.current) {
+      swiperRef.current.update();
+      setSlideCount(swiperRef.current.slides.length);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (isFetched && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [isFetched, hasNextPage, fetchNextPage]);
+
+  const handleSlideChange = (swiper: SwiperClass) => {
+    setActiveIndex(swiper.activeIndex);
+
+    const isLastActiveSlide = swiper.activeIndex + 1 === slideCount;
+
+    if (hasNextPage && isLastActiveSlide) {
+      fetchNextPage();
+    }
+  };
+
+  const isLastSlide = !hasNextPage && activeIndex + 1 === slideCount;
 
   return (
     <div className='relative w-full'>
@@ -50,14 +71,16 @@ const IdolSwiper = ({ pageSize }: IdolSwiperProps) => {
         observeParents={true}
         observeSlideChildren={true}
         onSwiper={(swiper) => (swiperRef.current = swiper)}
-        onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
+        onSlideChange={handleSlideChange}
         modules={[Navigation]}
       >
         {data?.pages.map((page, idx) => (
           <SwiperSlide key={idx}>
             <div className='idol-list'>
               {isFetchingNextPage ? (
-                <div>로딩 중</div>
+                <p className='size-full items-center justify-center text-5xl font-bold'>
+                  로딩중
+                </p>
               ) : (
                 <>
                   {page.list.map((idol: IdolData) => (
@@ -84,7 +107,7 @@ const IdolSwiper = ({ pageSize }: IdolSwiperProps) => {
         <button
           ref={nextRef}
           className='swiper-arrow swiper-right'
-          onClick={() => fetchNextPage()}
+          onClick={() => swiperRef.current?.slideNext()}
         >
           <Image src={ArrowRight} alt='다음' width={29} height={135} priority />
         </button>
