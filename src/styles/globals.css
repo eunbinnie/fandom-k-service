@@ -54,6 +54,18 @@
       right: 0;
     }
   }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #f96d69;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #02000e;
+  }
 }
 
 @layer components {

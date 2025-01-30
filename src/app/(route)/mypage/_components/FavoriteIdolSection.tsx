@@ -1,3 +1,7 @@
+'use client';
+
+import { LOCAL_STORAGE_DATA } from '../_constants/mypage.constants';
+
 const FavoriteIdolSection = () => {
   return (
     <section>
@@ -13,8 +17,20 @@ const FavoriteIdolSection = () => {
           </p>
         )}
       </section> */}
-      <h2 className='title'>내가 관심있는 아이돌</h2>
-      <div className='mt-3 sm:mt-6 lg:mt-8'></div>
+      <h2 className='title'>내가 관심 있는 아이돌</h2>
+      <div className='mt-3 text-center sm:mt-6 lg:mt-8'>
+        {LOCAL_STORAGE_DATA.length > 0 ? (
+          <div>아이돌 목록</div>
+        ) : (
+          <div className='my-10 inline-block'>
+            <p className='break-keep text-center opacity-60'>
+              아직 추가된 아이돌이 없어요.
+              <br />
+              관심 있는 아이돌을 선택해보세요!
+            </p>
+          </div>
+        )}
+      </div>
     </section>
   );
 };
