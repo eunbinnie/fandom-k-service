@@ -3,6 +3,7 @@
 import { useState } from 'react';
 
 import { useIdolStore } from '@/store';
+import Image from 'next/image';
 import addIcon from 'public/icons/add.svg';
 
 import Button from '@/components/button/Button';
@@ -32,9 +33,10 @@ const IdolListSection = () => {
         <Button
           onClick={handleClickAddButton}
           isRounded
-          className='max-w-[255px] py-[10px] text-base'
+          className='flex max-w-[255px] items-center justify-center gap-2 py-[10px] text-base'
         >
-          추가하기
+          <Image src={addIcon} alt='+' width={24} height={24} />
+          <span>추가하기</span>
         </Button>
       </div>
     </section>
