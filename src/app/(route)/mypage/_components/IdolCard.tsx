@@ -19,7 +19,7 @@ interface IdolCardProps {
 const IdolCard = ({ info, onClick }: IdolCardProps) => {
   const { profilePicture, name, group, id } = info;
   const [isSelected, setIsSelected] = useState(false);
-  const { idols } = useIdolStore();
+  const idols = useIdolStore((state) => state.idols);
 
   useEffect(() => {
     setIsSelected(idols.some((idol) => idol.id === id));

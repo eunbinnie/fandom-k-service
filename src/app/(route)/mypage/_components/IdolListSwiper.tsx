@@ -28,7 +28,9 @@ const IdolSwiper = ({ pageSize }: IdolSwiperProps) => {
   const swiperRef = useRef<SwiperClass | null>(null);
   const prevRef = useRef(null);
   const nextRef = useRef(null);
-  const { idols, addIdol, deleteIdol } = useIdolStore();
+  const idols = useIdolStore((state) => state.idols);
+  const addIdol = useIdolStore((state) => state.addIdol);
+  const deleteIdol = useIdolStore((state) => state.deleteIdol);
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetched } =
     useInfiniteQuery<IdolList>({

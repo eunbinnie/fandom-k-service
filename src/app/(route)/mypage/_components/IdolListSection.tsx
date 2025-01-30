@@ -6,31 +6,39 @@ import { useIdolStore } from '@/store';
 import Image from 'next/image';
 import addIcon from 'public/icons/add.svg';
 
+import type { IdolData } from '@/types/idols.interface';
+
 import Button from '@/components/button/Button';
 
-import {
-  LOCAL_STORAGE_DATA,
-  LOCAL_STORAGE_KEY,
-} from '../_constants/mypage.constants';
+import { LOCAL_STORAGE_KEY } from '../_constants/mypage.constants';
 
 import IdolSwiper from './IdolListSwiper';
 
 const IdolListSection = () => {
   const [pageSize, setPageSize] = useState(16);
-  const { idols, reset } = useIdolStore();
+  const idols = useIdolStore((state) => state.idols);
+  const reset = useIdolStore((state) => state.reset);
+  // const updateLocalStorageData = useIdolStore(
+  //   (state) => state.updateLocalStorageData,
+  // );
 
   const handleClickAddButton = () => {
+    const localStorageData: IdolData[] = JSON.parse(
+      localStorage?.getItem(LOCAL_STORAGE_KEY) ?? '[]',
+    );
+
     const newIdols = idols.filter(
-      (idol) => !LOCAL_STORAGE_DATA.some((item) => item.id === idol.id),
+      (idol) => !localStorageData.some((item) => item.id === idol.id),
     );
 
     if (newIdols.length > 0) {
       localStorage.setItem(
         LOCAL_STORAGE_KEY,
-        JSON.stringify([...LOCAL_STORAGE_DATA, ...newIdols]),
+        JSON.stringify([...localStorageData, ...newIdols]),
       );
     }
 
+    // updateLocalStorageData([...localStorageData, ...newIdols]);
     reset();
   };
 
