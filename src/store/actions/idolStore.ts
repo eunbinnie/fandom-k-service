@@ -20,7 +20,7 @@ export const useSelectIdolStore = create<ISelectIdolStoreActionProps>(
       })),
     deleteIdol: (data) =>
       set((state) => ({
-        idols: state.idols.filter((idol) => idol.id !== data.id),
+        idols: state.idols.filter((item) => item.id !== data.id),
       })),
     reset: () => set(() => ({ idols: [] })),
   }),
@@ -29,6 +29,7 @@ export const useSelectIdolStore = create<ISelectIdolStoreActionProps>(
 interface IFavoriteIdolStoreActionProps {
   favoriteIdols: IdolData[];
   addFavoriteIdols: (data: IdolData[]) => void;
+  deleteFavoriteIdols: (data: IdolData) => void;
 }
 
 export const useFavoriteIdolStore = create(
@@ -38,6 +39,12 @@ export const useFavoriteIdolStore = create(
       addFavoriteIdols: (data) =>
         set((state) => ({
           favoriteIdols: [...state.favoriteIdols, ...data],
+        })),
+      deleteFavoriteIdols: (data) =>
+        set((state) => ({
+          favoriteIdols: state.favoriteIdols.filter(
+            (item) => item.id !== data.id,
+          ),
         })),
     }),
     {

@@ -14,7 +14,7 @@ import Check from '@/components/ui/Check';
 
 interface IdolCardProps {
   info: IdolData;
-  onClick: React.MouseEventHandler<HTMLDivElement>;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
   remove?: boolean;
   selectMode?: boolean;
 }
@@ -30,9 +30,10 @@ const IdolCard = ({ info, onClick, remove, selectMode }: IdolCardProps) => {
 
   return (
     <div className='relative grid flex-shrink-0 gap-2'>
-      <div
+      <button
         className={cn(
-          'relative aspect-square h-full w-full cursor-pointer overflow-hidden rounded-full border-[1.3px] border-brand-red',
+          'relative aspect-square h-full w-full overflow-hidden rounded-full border-[1.3px] border-brand-red',
+          remove && 'pointer-events-none',
         )}
         onClick={onClick}
       >
@@ -50,7 +51,7 @@ const IdolCard = ({ info, onClick, remove, selectMode }: IdolCardProps) => {
             <Check size='big' />
           </div>
         )}
-      </div>
+      </button>
       <div className='grid gap-[2px] text-center'>
         <h5 className='overflow-hidden text-ellipsis whitespace-nowrap break-all text-[16px] font-bold leading-[1.6] text-[#f4efef]'>
           {name}
@@ -61,7 +62,7 @@ const IdolCard = ({ info, onClick, remove, selectMode }: IdolCardProps) => {
       </div>
       {remove && (
         <button
-          // onClick={deleteIdol}
+          onClick={onClick}
           className='absolute right-0 top-0 flex aspect-square size-[22px] items-center justify-center sm:size-8'
         >
           <Image
