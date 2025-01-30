@@ -25,15 +25,20 @@ const IdolListSection = () => {
 
   const handleClickAddButton = () => {
     const localStorageData: IdolData[] = JSON.parse(
-      localStorage?.getItem(LOCAL_STORAGE_KEY) ?? 'null',
+      localStorage?.getItem(LOCAL_STORAGE_KEY) ?? '[]',
     );
-    idols.forEach((idol) => {
-      const isStored = localStorageData.some((item) => item.id === idol.id);
-      if (!isStored) {
-        localStorageData.push(idol);
-      }
-    });
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(localStorageData));
+
+    const newIdols = idols.filter(
+      (idol) => !localStorageData.some((item) => item.id === idol.id),
+    );
+
+    if (newIdols.length > 0) {
+      localStorage.setItem(
+        LOCAL_STORAGE_KEY,
+        JSON.stringify([...localStorageData, ...newIdols]),
+      );
+    }
+
     reset();
   };
 
