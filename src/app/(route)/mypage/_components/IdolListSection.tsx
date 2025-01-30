@@ -6,11 +6,7 @@ import { useFavoriteIdolStore, useSelectIdolStore } from '@/store';
 import Image from 'next/image';
 import addIcon from 'public/icons/add.svg';
 
-import type { IdolData } from '@/types/idols.interface';
-
 import Button from '@/components/button/Button';
-
-import { LOCAL_STORAGE_KEY } from '../_constants/mypage.constants';
 
 import IdolSwiper from './IdolListSwiper';
 
@@ -24,20 +20,9 @@ const IdolListSection = () => {
   );
 
   const handleClickAddButton = () => {
-    // const localStorageData: IdolData[] = JSON.parse(
-    //   localStorage?.getItem(LOCAL_STORAGE_KEY) ?? '[]',
-    // );
-
     const newIdols = idols.filter(
       (idol) => !favoriteIdols.some((item) => item.id === idol.id),
     );
-
-    // if (newIdols.length > 0) {
-    //   localStorage.setItem(
-    //     LOCAL_STORAGE_KEY,
-    //     JSON.stringify([...localStorageData, ...newIdols]),
-    //   );
-    // }
 
     addFavoriteIdols(newIdols);
     reset();

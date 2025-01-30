@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 
 import { useSelectIdolStore } from '@/store';
 import Image from 'next/image';
+import deleteIcon from 'public/icons/delete.svg';
 
 import { cn } from '@/lib/styleUtils';
 
@@ -14,9 +15,11 @@ import Check from '@/components/ui/Check';
 interface IdolCardProps {
   info: IdolData;
   onClick: React.MouseEventHandler<HTMLDivElement>;
+  remove?: boolean;
+  selectMode?: boolean;
 }
 
-const IdolCard = ({ info, onClick }: IdolCardProps) => {
+const IdolCard = ({ info, onClick, remove, selectMode }: IdolCardProps) => {
   const { profilePicture, name, group, id } = info;
   const [isSelected, setIsSelected] = useState(false);
   const idols = useSelectIdolStore((state) => state.idols);
@@ -42,7 +45,7 @@ const IdolCard = ({ info, onClick }: IdolCardProps) => {
           sizes='max-width:100%'
           quality={1}
         />
-        {isSelected && (
+        {isSelected && selectMode && (
           <div className='absolute inset-0 flex items-center justify-center p-[5px]'>
             <Check size='big' />
           </div>
@@ -56,14 +59,20 @@ const IdolCard = ({ info, onClick }: IdolCardProps) => {
           {group}
         </h6>
       </div>
-      {/* {remove && (
+      {remove && (
         <button
-          onClick={deleteIdol}
-          className='bg-white absolute right-0 top-0 flex aspect-square items-center justify-center rounded-full border-[2.87px] border-[#02000e]'
+          // onClick={deleteIdol}
+          className='absolute right-0 top-0 flex aspect-square size-[22px] items-center justify-center sm:size-8'
         >
-          <img src={deleteIcon} className='w-[8px] md:w-auto' />
+          <Image
+            src={deleteIcon}
+            alt='삭제'
+            fill
+            priority
+            sizes='max-width:100%'
+          />
         </button>
-      )} */}
+      )}
     </div>
   );
 };

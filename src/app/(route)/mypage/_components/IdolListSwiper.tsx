@@ -98,6 +98,7 @@ const IdolSwiper = ({ pageSize }: IdolSwiperProps) => {
                       key={idol.id}
                       info={idol}
                       onClick={() => handleIdolClick(idol)}
+                      selectMode
                     />
                   ))}
                 </>
