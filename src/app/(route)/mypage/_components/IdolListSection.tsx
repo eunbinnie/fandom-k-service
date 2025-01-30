@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import { useSelectIdolStore } from '@/store';
+import { useFavoriteIdolStore, useSelectIdolStore } from '@/store';
 import Image from 'next/image';
 import addIcon from 'public/icons/add.svg';
 
@@ -18,27 +18,28 @@ const IdolListSection = () => {
   const [pageSize, setPageSize] = useState(16);
   const idols = useSelectIdolStore((state) => state.idols);
   const reset = useSelectIdolStore((state) => state.reset);
-  // const updateLocalStorageData = useIdolStore(
-  //   (state) => state.updateLocalStorageData,
-  // );
+  const favoriteIdols = useFavoriteIdolStore((state) => state.favoriteIdols);
+  const addFavoriteIdols = useFavoriteIdolStore(
+    (state) => state.addFavoriteIdols,
+  );
 
   const handleClickAddButton = () => {
-    const localStorageData: IdolData[] = JSON.parse(
-      localStorage?.getItem(LOCAL_STORAGE_KEY) ?? '[]',
-    );
+    // const localStorageData: IdolData[] = JSON.parse(
+    //   localStorage?.getItem(LOCAL_STORAGE_KEY) ?? '[]',
+    // );
 
     const newIdols = idols.filter(
-      (idol) => !localStorageData.some((item) => item.id === idol.id),
+      (idol) => !favoriteIdols.some((item) => item.id === idol.id),
     );
 
-    if (newIdols.length > 0) {
-      localStorage.setItem(
-        LOCAL_STORAGE_KEY,
-        JSON.stringify([...localStorageData, ...newIdols]),
-      );
-    }
+    // if (newIdols.length > 0) {
+    //   localStorage.setItem(
+    //     LOCAL_STORAGE_KEY,
+    //     JSON.stringify([...localStorageData, ...newIdols]),
+    //   );
+    // }
 
-    // updateLocalStorageData([...localStorageData, ...newIdols]);
+    addFavoriteIdols(newIdols);
     reset();
   };
 
