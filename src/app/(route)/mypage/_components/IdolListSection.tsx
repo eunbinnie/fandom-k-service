@@ -6,36 +6,28 @@ import { useIdolStore } from '@/store';
 import Image from 'next/image';
 import addIcon from 'public/icons/add.svg';
 
-import type { IdolData } from '@/types/idols.interface';
-
 import Button from '@/components/button/Button';
 
-import { LOCAL_STORAGE_KEY } from '../_constants/mypage.constants';
+import {
+  LOCAL_STORAGE_DATA,
+  LOCAL_STORAGE_KEY,
+} from '../_constants/mypage.constants';
 
-import IdolSwiper from './IdolSwiper';
+import IdolSwiper from './IdolListSwiper';
 
 const IdolListSection = () => {
-  // TODO zustand로 변경
-  // const [params, setParams] = useState<GetIdolsParams>({
-  //   cursor: 0,
-  //   pageSize: 16,
-  // });
   const [pageSize, setPageSize] = useState(16);
   const { idols, reset } = useIdolStore();
 
   const handleClickAddButton = () => {
-    const localStorageData: IdolData[] = JSON.parse(
-      localStorage?.getItem(LOCAL_STORAGE_KEY) ?? '[]',
-    );
-
     const newIdols = idols.filter(
-      (idol) => !localStorageData.some((item) => item.id === idol.id),
+      (idol) => !LOCAL_STORAGE_DATA.some((item) => item.id === idol.id),
     );
 
     if (newIdols.length > 0) {
       localStorage.setItem(
         LOCAL_STORAGE_KEY,
-        JSON.stringify([...localStorageData, ...newIdols]),
+        JSON.stringify([...LOCAL_STORAGE_DATA, ...newIdols]),
       );
     }
 
