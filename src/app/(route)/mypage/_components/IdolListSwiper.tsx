@@ -26,6 +26,7 @@ interface IdolSwiperProps {
 const IdolSwiper = ({ pageSize }: IdolSwiperProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [slideCount, setSlideCount] = useState(0);
+  const [isMounted, setIsMounted] = useState(false);
   const swiperRef = useRef<SwiperClass | null>(null);
   const prevRef = useRef(null);
   const nextRef = useRef(null);
@@ -50,7 +51,29 @@ const IdolSwiper = ({ pageSize }: IdolSwiperProps) => {
   });
 
   const shouldShowSkeleton =
-    isLoading || !isFetched || isFetching || isFetchingNextPage;
+    isLoading || !isFetched || isFetching || isFetchingNextPage || !isMounted;
+
+  const isLastSlide = !hasNextPage && activeIndex + 1 === slideCount;
+
+  const handleSlideChange = (swiper: SwiperClass) => {
+    setActiveIndex(swiper.activeIndex);
+
+    const isLastActiveSlide = swiper.activeIndex + 1 === slideCount;
+
+    if (hasNextPage && isLastActiveSlide) {
+      fetchNextPage();
+    }
+  };
+
+  const handleIdolClick = (data: IdolData) => {
+    const isSelectedIdol = idols.some((idol) => idol.id === data.id);
+
+    return isSelectedIdol ? deleteIdol(data) : addIdol(data);
+  };
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   useEffect(() => {
     if (swiperRef.current) {
@@ -64,24 +87,6 @@ const IdolSwiper = ({ pageSize }: IdolSwiperProps) => {
       fetchNextPage();
     }
   }, [isFetched, hasNextPage, fetchNextPage]);
-
-  const handleSlideChange = (swiper: SwiperClass) => {
-    setActiveIndex(swiper.activeIndex);
-
-    const isLastActiveSlide = swiper.activeIndex + 1 === slideCount;
-
-    if (hasNextPage && isLastActiveSlide) {
-      fetchNextPage();
-    }
-  };
-
-  const isLastSlide = !hasNextPage && activeIndex + 1 === slideCount;
-
-  const handleIdolClick = (data: IdolData) => {
-    const isSelectedIdol = idols.some((idol) => idol.id === data.id);
-
-    return isSelectedIdol ? deleteIdol(data) : addIdol(data);
-  };
 
   return (
     <div className='relative w-full'>
