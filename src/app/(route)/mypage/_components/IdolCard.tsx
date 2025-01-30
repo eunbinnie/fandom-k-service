@@ -7,9 +7,10 @@ import type { IdolData } from '@/types/idols.interface';
 interface IdolCardProps {
   info: IdolData;
   padding: number;
+  onClick: React.MouseEventHandler<HTMLDivElement>;
 }
 
-const IdolCard = ({ info, padding = 5 }: IdolCardProps) => {
+const IdolCard = ({ info, padding = 5, onClick }: IdolCardProps) => {
   const { profilePicture, name, group } = info;
 
   return (
@@ -18,8 +19,7 @@ const IdolCard = ({ info, padding = 5 }: IdolCardProps) => {
         className={cn(
           'relative aspect-square h-full w-full cursor-pointer overflow-hidden rounded-full border-[1.3px] border-brand-red',
         )}
-        // style={{ padding: `${padding ?? 5}px` }}
-        // onClick={handleCardClick}
+        onClick={onClick}
       >
         <Image
           src={profilePicture}
