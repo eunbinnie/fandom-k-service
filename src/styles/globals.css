@@ -66,6 +66,10 @@
   ::-webkit-scrollbar-track {
     background: #02000e;
   }
+
+  .skeleton-style {
+    @apply animate-pulse bg-gray-medium;
+  }
 }
 
 @layer components {

@@ -4,8 +4,6 @@ import { useFavoriteIdolStore } from '@/store';
 import { Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import type { IdolData } from '@/types/idols.interface';
-
 import IdolCard from './IdolCard';
 
 const FavoriteIdolList = () => {
@@ -13,10 +11,6 @@ const FavoriteIdolList = () => {
   const deleteFavoriteIdols = useFavoriteIdolStore(
     (state) => state.deleteFavoriteIdols,
   );
-
-  const handleDeleteButtonClick = (data: IdolData) => {
-    deleteFavoriteIdols(data);
-  };
 
   return (
     <Swiper

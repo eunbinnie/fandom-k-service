@@ -17,6 +17,7 @@ import type { IdolList } from '@/types/idols.interface';
 import { type IdolData } from '@/types/idols.interface';
 
 import IdolCard from './IdolCard';
+import IdolListSkeleton from './IdolListSkeleton';
 
 interface IdolSwiperProps {
   pageSize: number;
@@ -32,14 +33,24 @@ const IdolSwiper = ({ pageSize }: IdolSwiperProps) => {
   const addIdol = useSelectIdolStore((state) => state.addIdol);
   const deleteIdol = useSelectIdolStore((state) => state.deleteIdol);
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetched } =
-    useInfiniteQuery<IdolList>({
-      queryKey: ['idols'],
-      queryFn: ({ pageParam = 0 }) =>
-        getIdols({ cursor: Number(pageParam), pageSize: pageSize }),
-      initialPageParam: 0,
-      getNextPageParam: (lastPage) => lastPage.nextCursor,
-    });
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isFetched,
+    isFetching,
+    isLoading,
+  } = useInfiniteQuery<IdolList>({
+    queryKey: ['idols'],
+    queryFn: ({ pageParam = 0 }) =>
+      getIdols({ cursor: Number(pageParam), pageSize: pageSize }),
+    initialPageParam: 0,
+    getNextPageParam: (lastPage) => lastPage.nextCursor,
+  });
+
+  const shouldShowSkeleton =
+    isLoading || !isFetched || isFetching || isFetchingNextPage;
 
   useEffect(() => {
     if (swiperRef.current) {
@@ -87,10 +98,8 @@ const IdolSwiper = ({ pageSize }: IdolSwiperProps) => {
         {data?.pages.map((page, idx) => (
           <SwiperSlide key={idx}>
             <div className='idol-list'>
-              {isFetchingNextPage ? (
-                <p className='size-full items-center justify-center text-5xl font-bold'>
-                  로딩중
-                </p>
+              {shouldShowSkeleton ? (
+                <IdolListSkeleton pageSize={pageSize} />
               ) : (
                 <>
                   {page.list.map((idol: IdolData) => (
