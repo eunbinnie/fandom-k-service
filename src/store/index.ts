@@ -1,3 +1,3 @@
-export { useIdolStore } from './actions/idolStore';
+export { useSelectIdolStore, useFavoriteIdolStore } from './actions/idolStore';
 
 export { useSimpleStore, useRefControlStore } from './actions/testStore';

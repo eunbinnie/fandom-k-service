@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from 'react';
 
-import { useIdolStore } from '@/store';
+import { useSelectIdolStore } from '@/store';
 import Image from 'next/image';
+import deleteIcon from 'public/icons/delete.svg';
 
 import { cn } from '@/lib/styleUtils';
 
@@ -13,13 +14,15 @@ import Check from '@/components/ui/Check';
 
 interface IdolCardProps {
   info: IdolData;
-  onClick: React.MouseEventHandler<HTMLDivElement>;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  remove?: boolean;
+  selectMode?: boolean;
 }
 
-const IdolCard = ({ info, onClick }: IdolCardProps) => {
+const IdolCard = ({ info, onClick, remove, selectMode }: IdolCardProps) => {
   const { profilePicture, name, group, id } = info;
   const [isSelected, setIsSelected] = useState(false);
-  const { idols } = useIdolStore();
+  const idols = useSelectIdolStore((state) => state.idols);
 
   useEffect(() => {
     setIsSelected(idols.some((idol) => idol.id === id));
@@ -27,9 +30,10 @@ const IdolCard = ({ info, onClick }: IdolCardProps) => {
 
   return (
     <div className='relative grid flex-shrink-0 gap-2'>
-      <div
+      <button
         className={cn(
-          'relative aspect-square h-full w-full cursor-pointer overflow-hidden rounded-full border-[1.3px] border-brand-red',
+          'relative aspect-square h-full w-full overflow-hidden rounded-full border-[1.3px] border-brand-red',
+          remove && 'pointer-events-none',
         )}
         onClick={onClick}
       >
@@ -42,12 +46,12 @@ const IdolCard = ({ info, onClick }: IdolCardProps) => {
           sizes='max-width:100%'
           quality={1}
         />
-        {isSelected && (
+        {isSelected && selectMode && (
           <div className='absolute inset-0 flex items-center justify-center p-[5px]'>
             <Check size='big' />
           </div>
         )}
-      </div>
+      </button>
       <div className='grid gap-[2px] text-center'>
         <h5 className='overflow-hidden text-ellipsis whitespace-nowrap break-all text-[16px] font-bold leading-[1.6] text-[#f4efef]'>
           {name}
@@ -56,14 +60,20 @@ const IdolCard = ({ info, onClick }: IdolCardProps) => {
           {group}
         </h6>
       </div>
-      {/* {remove && (
+      {remove && (
         <button
-          onClick={deleteIdol}
-          className='bg-white absolute right-0 top-0 flex aspect-square items-center justify-center rounded-full border-[2.87px] border-[#02000e]'
+          onClick={onClick}
+          className='absolute right-0 top-0 flex aspect-square size-[22px] items-center justify-center sm:size-8'
         >
-          <img src={deleteIcon} className='w-[8px] md:w-auto' />
+          <Image
+            src={deleteIcon}
+            alt='삭제'
+            fill
+            priority
+            sizes='max-width:100%'
+          />
         </button>
-      )} */}
+      )}
     </div>
   );
 };

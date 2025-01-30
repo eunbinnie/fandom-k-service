@@ -2,43 +2,29 @@
 
 import { useState } from 'react';
 
-import { useIdolStore } from '@/store';
+import { useFavoriteIdolStore, useSelectIdolStore } from '@/store';
 import Image from 'next/image';
 import addIcon from 'public/icons/add.svg';
 
-import type { IdolData } from '@/types/idols.interface';
-
 import Button from '@/components/button/Button';
 
-import { LOCAL_STORAGE_KEY } from '../_constants/mypage.constants';
-
-import IdolSwiper from './IdolSwiper';
+import IdolSwiper from './IdolListSwiper';
 
 const IdolListSection = () => {
-  // TODO zustand로 변경
-  // const [params, setParams] = useState<GetIdolsParams>({
-  //   cursor: 0,
-  //   pageSize: 16,
-  // });
   const [pageSize, setPageSize] = useState(16);
-  const { idols, reset } = useIdolStore();
+  const idols = useSelectIdolStore((state) => state.idols);
+  const reset = useSelectIdolStore((state) => state.reset);
+  const favoriteIdols = useFavoriteIdolStore((state) => state.favoriteIdols);
+  const addFavoriteIdols = useFavoriteIdolStore(
+    (state) => state.addFavoriteIdols,
+  );
 
   const handleClickAddButton = () => {
-    const localStorageData: IdolData[] = JSON.parse(
-      localStorage?.getItem(LOCAL_STORAGE_KEY) ?? '[]',
-    );
-
     const newIdols = idols.filter(
-      (idol) => !localStorageData.some((item) => item.id === idol.id),
+      (idol) => !favoriteIdols.some((item) => item.id === idol.id),
     );
 
-    if (newIdols.length > 0) {
-      localStorage.setItem(
-        LOCAL_STORAGE_KEY,
-        JSON.stringify([...localStorageData, ...newIdols]),
-      );
-    }
-
+    addFavoriteIdols(newIdols);
     reset();
   };
 

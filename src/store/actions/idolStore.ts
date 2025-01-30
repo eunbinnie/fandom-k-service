@@ -1,27 +1,54 @@
+import { LOCAL_STORAGE_KEY } from '@/app/(route)/mypage/_constants/mypage.constants';
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 import type { IdolData } from '@/types/idols.interface';
 
-interface IIdolStoreActionProps {
+interface ISelectIdolStoreActionProps {
   idols: IdolData[];
   addIdol: (data: IdolData) => void;
   deleteIdol: (data: IdolData) => void;
   reset: () => void;
 }
 
-const initialState = {
-  idols: [],
-};
+export const useSelectIdolStore = create<ISelectIdolStoreActionProps>(
+  (set) => ({
+    idols: [],
+    addIdol: (data) =>
+      set((state) => ({
+        idols: [...state.idols, data],
+      })),
+    deleteIdol: (data) =>
+      set((state) => ({
+        idols: state.idols.filter((item) => item.id !== data.id),
+      })),
+    reset: () => set(() => ({ idols: [] })),
+  }),
+);
 
-export const useIdolStore = create<IIdolStoreActionProps>((set) => ({
-  ...initialState,
-  addIdol: (data) =>
-    set((state) => ({
-      idols: [...state.idols, data],
-    })),
-  deleteIdol: (data: IdolData) =>
-    set((state) => ({
-      idols: state.idols.filter((idol) => idol.id !== data.id),
-    })),
-  reset: () => set(() => ({ ...initialState })),
-}));
+interface IFavoriteIdolStoreActionProps {
+  favoriteIdols: IdolData[];
+  addFavoriteIdols: (data: IdolData[]) => void;
+  deleteFavoriteIdols: (data: IdolData) => void;
+}
+
+export const useFavoriteIdolStore = create(
+  persist<IFavoriteIdolStoreActionProps>(
+    (set) => ({
+      favoriteIdols: [],
+      addFavoriteIdols: (data) =>
+        set((state) => ({
+          favoriteIdols: [...state.favoriteIdols, ...data],
+        })),
+      deleteFavoriteIdols: (data) =>
+        set((state) => ({
+          favoriteIdols: state.favoriteIdols.filter(
+            (item) => item.id !== data.id,
+          ),
+        })),
+    }),
+    {
+      name: LOCAL_STORAGE_KEY,
+    },
+  ),
+);
