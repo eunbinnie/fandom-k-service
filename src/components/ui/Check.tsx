@@ -4,10 +4,10 @@ import CheckIcon from 'public/icons/check.svg';
 import { cn } from '@/lib/styleUtils';
 
 interface ICheckProps {
-  size: 'big' | 'small';
+  size?: 'big' | 'small';
 }
 
-const Check = ({ size }: ICheckProps) => {
+const Check = ({ size = 'small' }: ICheckProps) => {
   return (
     <div className='absolute left-[5px] top-[5px] flex size-[calc(100%-10px)] items-center justify-center rounded-full bg-pink-background'>
       <div

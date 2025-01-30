@@ -28,7 +28,7 @@ const IdolSwiper = ({ pageSize }: IdolSwiperProps) => {
   const swiperRef = useRef<SwiperClass | null>(null);
   const prevRef = useRef(null);
   const nextRef = useRef(null);
-  const { getSelectedIdols, addIdol, deleteIdol } = useIdolStore();
+  const { idols, addIdol, deleteIdol } = useIdolStore();
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetched } =
     useInfiniteQuery<IdolList>({
@@ -65,7 +65,6 @@ const IdolSwiper = ({ pageSize }: IdolSwiperProps) => {
   const isLastSlide = !hasNextPage && activeIndex + 1 === slideCount;
 
   const handleIdolClick = (data: IdolData) => {
-    const idols = getSelectedIdols();
     const isSelectedIdol = idols.some((idol) => idol.id === data.id);
 
     return isSelectedIdol ? deleteIdol(data) : addIdol(data);
@@ -96,7 +95,6 @@ const IdolSwiper = ({ pageSize }: IdolSwiperProps) => {
                     <IdolCard
                       key={idol.id}
                       info={idol}
-                      padding={6.48}
                       onClick={() => handleIdolClick(idol)}
                     />
                   ))}
