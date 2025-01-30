@@ -4,6 +4,8 @@ import { cn } from '@/lib/styleUtils';
 
 import type { IdolData } from '@/types/idols.interface';
 
+import Check from '@/components/ui/Check';
+
 interface IdolCardProps {
   info: IdolData;
   padding: number;
@@ -33,14 +35,14 @@ const IdolCard = ({ info, padding = 5, onClick }: IdolCardProps) => {
             padding: padding ? `${padding}px` : '5px',
           }}
         />
-        {/* {isSelected && isAddingMode && (
-          <div
-            className={`absolute inset-0 flex items-center justify-center`}
-            style={{ padding: `${padding}px` }}
-          >
-            <Check padding={padding} />
-          </div>
-        )} */}
+        {/* {isSelected && ( */}
+        <div
+          className={`absolute inset-0 flex items-center justify-center`}
+          style={{ padding: `${padding}px` }}
+        >
+          <Check size='big' />
+        </div>
+        {/* )} */}
       </div>
       <div className='grid gap-[2px] text-center'>
         <h5 className='overflow-hidden text-ellipsis whitespace-nowrap break-all text-[16px] font-bold leading-[1.6] text-[#f4efef]'>

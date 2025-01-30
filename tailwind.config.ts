@@ -45,6 +45,10 @@ const config: Config = {
         '2xl': ['24px', '1.08'],
         '3xl': ['26px', 'normal'],
       },
+      backgroundImage: {
+        'pink-background':
+          'linear-gradient(271.36deg,rgba(249, 110, 104, 0.5) -9.84%,rgba(254, 87, 143, 0.5) 107.18%)',
+      },
     },
   },
   plugins: [tailwindcssAnimate],
