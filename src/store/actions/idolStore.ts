@@ -6,10 +6,15 @@ interface IIdolStoreActionProps {
   idols: IdolData[];
   addIdol: (data: IdolData) => void;
   deleteIdol: (data: IdolData) => void;
+  reset: () => void;
 }
 
-export const useIdolStore = create<IIdolStoreActionProps>((set) => ({
+const initialState = {
   idols: [],
+};
+
+export const useIdolStore = create<IIdolStoreActionProps>((set) => ({
+  ...initialState,
   addIdol: (data) =>
     set((state) => ({
       idols: [...state.idols, data],
@@ -18,4 +23,5 @@ export const useIdolStore = create<IIdolStoreActionProps>((set) => ({
     set((state) => ({
       idols: state.idols.filter((idol) => idol.id !== data.id),
     })),
+  reset: () => set(() => ({ ...initialState })),
 }));
