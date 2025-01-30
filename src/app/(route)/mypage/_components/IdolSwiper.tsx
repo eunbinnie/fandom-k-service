@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 import { getIdols } from '@/apis/idols';
+import { useIdolStore } from '@/store';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import ArrowLeft from 'public/icons/arrow-left.svg';
@@ -27,6 +28,7 @@ const IdolSwiper = ({ pageSize }: IdolSwiperProps) => {
   const swiperRef = useRef<SwiperClass | null>(null);
   const prevRef = useRef(null);
   const nextRef = useRef(null);
+  const { idols, addIdol, deleteIdol } = useIdolStore();
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetched } =
     useInfiniteQuery<IdolList>({
@@ -62,6 +64,12 @@ const IdolSwiper = ({ pageSize }: IdolSwiperProps) => {
 
   const isLastSlide = !hasNextPage && activeIndex + 1 === slideCount;
 
+  const handleIdolClick = (data: IdolData) => {
+    const isSelectedIdol = idols.some((idol) => idol.id === data.id);
+
+    return isSelectedIdol ? deleteIdol(data) : addIdol(data);
+  };
+
   return (
     <div className='relative w-full'>
       <Swiper
@@ -84,7 +92,11 @@ const IdolSwiper = ({ pageSize }: IdolSwiperProps) => {
               ) : (
                 <>
                   {page.list.map((idol: IdolData) => (
-                    <IdolCard key={idol.id} info={idol} padding={6.48} />
+                    <IdolCard
+                      key={idol.id}
+                      info={idol}
+                      onClick={() => handleIdolClick(idol)}
+                    />
                   ))}
                 </>
               )}

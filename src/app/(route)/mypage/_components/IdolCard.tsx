@@ -1,16 +1,29 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+
+import { useIdolStore } from '@/store';
 import Image from 'next/image';
 
 import { cn } from '@/lib/styleUtils';
 
 import type { IdolData } from '@/types/idols.interface';
 
+import Check from '@/components/ui/Check';
+
 interface IdolCardProps {
   info: IdolData;
-  padding: number;
+  onClick: React.MouseEventHandler<HTMLDivElement>;
 }
 
-const IdolCard = ({ info, padding = 5 }: IdolCardProps) => {
-  const { profilePicture, name, group } = info;
+const IdolCard = ({ info, onClick }: IdolCardProps) => {
+  const { profilePicture, name, group, id } = info;
+  const [isSelected, setIsSelected] = useState(false);
+  const { idols } = useIdolStore();
+
+  useEffect(() => {
+    setIsSelected(idols.some((idol) => idol.id === id));
+  }, [idols, id]);
 
   return (
     <div className='relative grid flex-shrink-0 gap-2'>
@@ -18,29 +31,22 @@ const IdolCard = ({ info, padding = 5 }: IdolCardProps) => {
         className={cn(
           'relative aspect-square h-full w-full cursor-pointer overflow-hidden rounded-full border-[1.3px] border-brand-red',
         )}
-        // style={{ padding: `${padding ?? 5}px` }}
-        // onClick={handleCardClick}
+        onClick={onClick}
       >
         <Image
           src={profilePicture}
           alt={name}
-          className='h-full w-full rounded-full object-cover'
+          className='h-full w-full rounded-full object-cover p-[5px]'
           fill
           priority
           sizes='max-width:100%'
           quality={1}
-          style={{
-            padding: padding ? `${padding}px` : '5px',
-          }}
         />
-        {/* {isSelected && isAddingMode && (
-          <div
-            className={`absolute inset-0 flex items-center justify-center`}
-            style={{ padding: `${padding}px` }}
-          >
-            <Check padding={padding} />
+        {isSelected && (
+          <div className='absolute inset-0 flex items-center justify-center p-[5px]'>
+            <Check size='big' />
           </div>
-        )} */}
+        )}
       </div>
       <div className='grid gap-[2px] text-center'>
         <h5 className='overflow-hidden text-ellipsis whitespace-nowrap break-all text-[16px] font-bold leading-[1.6] text-[#f4efef]'>
