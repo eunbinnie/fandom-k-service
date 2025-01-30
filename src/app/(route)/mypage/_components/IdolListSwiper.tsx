@@ -51,7 +51,7 @@ const IdolSwiper = ({ pageSize }: IdolSwiperProps) => {
   });
 
   const shouldShowSkeleton =
-    isLoading || !isFetched || isFetching || isFetchingNextPage || !isMounted;
+    isLoading || !isFetched || isFetching || isFetchingNextPage;
 
   const isLastSlide = !hasNextPage && activeIndex + 1 === slideCount;
 
@@ -100,6 +100,9 @@ const IdolSwiper = ({ pageSize }: IdolSwiperProps) => {
         onSlideChange={handleSlideChange}
         modules={[Navigation]}
       >
+        <div className='idol-list'>
+          {!isMounted && <IdolListSkeleton pageSize={pageSize} />}
+        </div>
         {data?.pages.map((page, idx) => (
           <SwiperSlide key={idx}>
             <div className='idol-list'>
