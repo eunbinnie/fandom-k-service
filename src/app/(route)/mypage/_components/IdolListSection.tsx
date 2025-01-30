@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import { useIdolStore } from '@/store';
+import { useSelectIdolStore } from '@/store';
 import Image from 'next/image';
 import addIcon from 'public/icons/add.svg';
 
@@ -16,8 +16,8 @@ import IdolSwiper from './IdolListSwiper';
 
 const IdolListSection = () => {
   const [pageSize, setPageSize] = useState(16);
-  const idols = useIdolStore((state) => state.idols);
-  const reset = useIdolStore((state) => state.reset);
+  const idols = useSelectIdolStore((state) => state.idols);
+  const reset = useSelectIdolStore((state) => state.reset);
   // const updateLocalStorageData = useIdolStore(
   //   (state) => state.updateLocalStorageData,
   // );

@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 import { getIdols } from '@/apis/idols';
-import { useIdolStore } from '@/store';
+import { useSelectIdolStore } from '@/store';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import ArrowLeft from 'public/icons/arrow-left.svg';
@@ -28,9 +28,9 @@ const IdolSwiper = ({ pageSize }: IdolSwiperProps) => {
   const swiperRef = useRef<SwiperClass | null>(null);
   const prevRef = useRef(null);
   const nextRef = useRef(null);
-  const idols = useIdolStore((state) => state.idols);
-  const addIdol = useIdolStore((state) => state.addIdol);
-  const deleteIdol = useIdolStore((state) => state.deleteIdol);
+  const idols = useSelectIdolStore((state) => state.idols);
+  const addIdol = useSelectIdolStore((state) => state.addIdol);
+  const deleteIdol = useSelectIdolStore((state) => state.deleteIdol);
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetched } =
     useInfiniteQuery<IdolList>({

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-import { useIdolStore } from '@/store';
+import { useSelectIdolStore } from '@/store';
 import Image from 'next/image';
 
 import { cn } from '@/lib/styleUtils';
@@ -19,7 +19,7 @@ interface IdolCardProps {
 const IdolCard = ({ info, onClick }: IdolCardProps) => {
   const { profilePicture, name, group, id } = info;
   const [isSelected, setIsSelected] = useState(false);
-  const idols = useIdolStore((state) => state.idols);
+  const idols = useSelectIdolStore((state) => state.idols);
 
   useEffect(() => {
     setIsSelected(idols.some((idol) => idol.id === id));

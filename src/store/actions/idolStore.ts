@@ -2,7 +2,7 @@ import { create } from 'zustand';
 
 import type { IdolData } from '@/types/idols.interface';
 
-interface IIdolStoreActionProps {
+interface ISelectIdolStoreActionProps {
   idols: IdolData[];
   // favoriteIdols: IdolData[];
   addIdol: (data: IdolData) => void;
@@ -16,19 +16,21 @@ interface IIdolStoreActionProps {
 //   favoriteIdols: [],
 // };
 
-export const useIdolStore = create<IIdolStoreActionProps>((set) => ({
-  idols: [],
-  addIdol: (data) =>
-    set((state) => ({
-      idols: [...state.idols, data],
-    })),
-  deleteIdol: (data: IdolData) =>
-    set((state) => ({
-      idols: state.idols.filter((idol) => idol.id !== data.id),
-    })),
-  reset: () => set(() => ({ idols: [] })),
-  // updateLocalStorageData: (data) =>
-  //   set(() => ({
-  //     favoriteIdols: data,
-  //   })),
-}));
+export const useSelectIdolStore = create<ISelectIdolStoreActionProps>(
+  (set) => ({
+    idols: [],
+    addIdol: (data) =>
+      set((state) => ({
+        idols: [...state.idols, data],
+      })),
+    deleteIdol: (data: IdolData) =>
+      set((state) => ({
+        idols: state.idols.filter((idol) => idol.id !== data.id),
+      })),
+    reset: () => set(() => ({ idols: [] })),
+    // updateLocalStorageData: (data) =>
+    //   set(() => ({
+    //     favoriteIdols: data,
+    //   })),
+  }),
+);

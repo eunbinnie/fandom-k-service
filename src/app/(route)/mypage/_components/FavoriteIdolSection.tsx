@@ -1,12 +1,8 @@
 'use client';
 
-import { useIdolStore } from '@/store';
-
 import FavoriteIdolList from './FavoriteIdolList';
 
 const FavoriteIdolSection = () => {
-  // const favoriteIdols = useIdolStore((state) => state.favoriteIdols);
-
   return (
     <section>
       {/* <section>
