@@ -70,6 +70,20 @@
   .skeleton-style {
     @apply animate-pulse bg-gray-medium;
   }
+
+  body::before {
+    content: '';
+    background: #14c3fe;
+    opacity: 0.2;
+    filter: blur(70.00000762939453px);
+    width: 199px;
+    height: 273px;
+    top: -49px;
+    left: -114px;
+    display: block;
+    position: absolute;
+    z-index: -1;
+  }
 }
 
 @layer components {
