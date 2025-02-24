@@ -15,6 +15,7 @@ const config: Config = {
           red: '#f96868',
           orange: '#f96d69',
           pink: '#fe5493',
+          yellow: '#d2c030',
         },
         black: {
           primary: '#02000e',
@@ -50,6 +51,10 @@ const config: Config = {
           'linear-gradient(271.36deg,rgba(249, 110, 104, 0.5) -9.84%,rgba(254, 87, 143, 0.5) 107.18%)',
         'button-background':
           'linear-gradient(91deg, #F77063 3.33%, #FE5790 99.37%)',
+        'radial-background':
+          'radial-gradient(50% 50% at 50% 50%, rgba(2, 0, 14, 0.00) 0%, rgba(2, 0, 14, 0.18) 37.5%, rgba(2, 0, 14, 0.50) 79.5%, #02000E 100%)',
+        'blue-background':
+          'linear-gradient(180deg, #030615 0%, #051D31 42.67%, #051E32 53.12%, #051C30 74.27%, #030B1C 100%)',
       },
     },
   },
