@@ -21,7 +21,7 @@ const Button = ({
     <button
       onClick={onClick}
       className={cn(
-        'w-full bg-button-background py-2 text-sm font-bold',
+        'w-full bg-button-background px-4 py-2 text-sm font-bold',
         isRounded && 'rounded-full',
         disabled && 'bg-gray-medium',
         className,

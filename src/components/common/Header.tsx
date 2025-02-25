@@ -8,7 +8,7 @@ const Header = () => {
     <header className='container flex items-center justify-between gap-1 pb-[6px] pt-[18px] sm:py-[30px]'>
       <div className='size-8' />
       <h1 className='aspect-[525/100] w-[108px] sm:w-[120px] lg:w-[168px]'>
-        <Link href={'/list'} className='relative block h-full'>
+        <Link href={'/'} className='relative block h-full'>
           <Image
             src={Logo}
             alt='FANDOM-K'
