@@ -29,10 +29,10 @@ const IdolCard = ({ info, onClick, remove, selectMode }: IdolCardProps) => {
   }, [idols, id]);
 
   return (
-    <div className='relative grid flex-shrink-0 gap-2'>
+    <div className='relative grid gap-2'>
       <button
         className={cn(
-          'relative aspect-square h-full w-full overflow-hidden rounded-full border-[1.3px] border-brand-red',
+          'relative aspect-square size-full overflow-hidden rounded-full border-[1.3px] border-brand-red',
           remove && 'pointer-events-none',
         )}
         onClick={onClick}
