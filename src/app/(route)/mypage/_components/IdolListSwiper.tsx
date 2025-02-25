@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 import { getIdols } from '@/apis/idols';
+import useWindowSize from '@/hooks/useWindowSize';
 import { useSelectIdolStore } from '@/store';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import Image from 'next/image';
@@ -24,9 +25,11 @@ interface IdolSwiperProps {
 }
 
 const IdolSwiper = ({ pageSize }: IdolSwiperProps) => {
+  const windowSize = useWindowSize();
   const [activeIndex, setActiveIndex] = useState(0);
   const [slideCount, setSlideCount] = useState(0);
   const [isMounted, setIsMounted] = useState(false);
+  const [isPc, setIsPc] = useState(false);
   const swiperRef = useRef<SwiperClass | null>(null);
   const prevRef = useRef(null);
   const nextRef = useRef(null);
@@ -88,6 +91,10 @@ const IdolSwiper = ({ pageSize }: IdolSwiperProps) => {
     }
   }, [isFetched, hasNextPage, fetchNextPage]);
 
+  useEffect(() => {
+    setIsPc(windowSize > 480);
+  }, [windowSize]);
+
   return (
     <div className='relative w-full'>
       <Swiper
@@ -126,7 +133,7 @@ const IdolSwiper = ({ pageSize }: IdolSwiperProps) => {
       </Swiper>
 
       {/* TODO arrow button 480px이하에서 언마운트 */}
-      {activeIndex > 0 && (
+      {activeIndex > 0 && isPc && (
         <button
           ref={prevRef}
           className='swiper-arrow swiper-left'
@@ -135,7 +142,7 @@ const IdolSwiper = ({ pageSize }: IdolSwiperProps) => {
           <Image src={ArrowLeft} alt='이전' width={29} height={135} priority />
         </button>
       )}
-      {!isLastSlide && (
+      {!isLastSlide && isPc && (
         <button
           ref={nextRef}
           className='swiper-arrow swiper-right'
