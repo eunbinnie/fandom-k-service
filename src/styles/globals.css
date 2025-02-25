@@ -90,10 +90,4 @@
   .container {
     @apply mx-auto w-full max-w-[1248px] px-6;
   }
-
-  .introduce-bg {
-    background-repeat: no-repeat;
-    background-size: 1200px;
-    background-position: center;
-  }
 }
