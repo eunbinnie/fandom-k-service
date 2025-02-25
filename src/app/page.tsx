@@ -24,7 +24,7 @@ const LANDING_CONTENTS = [
     image: '/images/MainContent_2.png',
   },
   {
-    title: '나만의의 아티스트',
+    title: '나만의 아티스트',
     contents1: '좋아하는 아티스트들의',
     contents2: '소식을 모아보세요',
     backgroundImage: `url('/images/MainBackground_3.png')`,
