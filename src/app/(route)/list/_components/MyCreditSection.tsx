@@ -1,9 +1,12 @@
 'use client';
 
+import useComponentMount from '@/hooks/useComponentMount';
 import Image from 'next/image';
 import Credit from 'public/icons/credit.svg';
 
 const MyCreditSection = () => {
+  const isMounted = useComponentMount();
+
   return (
     <section>
       <div className='flex flex-wrap items-center justify-between gap-3 rounded-lg border border-white-lavendar p-5 sm:px-16 sm:py-9 lg:px-[78px] lg:pb-[42px] lg:pt-[30px]'>
@@ -13,9 +16,13 @@ const MyCreditSection = () => {
           </span>
           <div className='flex flex-wrap items-center gap-1'>
             <Image src={Credit} alt='크레딧' width={24} height={28} />
-            <span className='text-xl font-bold leading-[1.3] opacity-[0.87] sm:text-2xl'>
-              36,000
-            </span>
+            {isMounted ? (
+              <span className='text-xl font-bold leading-[1.3] opacity-[0.87] sm:text-2xl'>
+                36,000
+              </span>
+            ) : (
+              <div className='skeleton-style h-[26px] w-[70px] rounded-full sm:w-20' />
+            )}
           </div>
         </div>
         <button
