@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 import { getIdols } from '@/apis/idols';
+import useComponentMount from '@/hooks/useComponentMount';
 import useWindowSize from '@/hooks/useWindowSize';
 import { useSelectIdolStore } from '@/store';
 import { useInfiniteQuery } from '@tanstack/react-query';
@@ -25,10 +26,10 @@ interface IdolSwiperProps {
 }
 
 const IdolSwiper = ({ pageSize }: IdolSwiperProps) => {
+  const isMounted = useComponentMount();
   const windowSize = useWindowSize();
   const [activeIndex, setActiveIndex] = useState(0);
   const [slideCount, setSlideCount] = useState(0);
-  const [isMounted, setIsMounted] = useState(false);
   const [isPc, setIsPc] = useState(false);
   const swiperRef = useRef<SwiperClass | null>(null);
   const prevRef = useRef(null);
@@ -73,10 +74,6 @@ const IdolSwiper = ({ pageSize }: IdolSwiperProps) => {
 
     return isSelectedIdol ? deleteIdol(data) : addIdol(data);
   };
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   useEffect(() => {
     if (swiperRef.current) {
