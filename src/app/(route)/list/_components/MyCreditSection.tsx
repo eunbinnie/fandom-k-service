@@ -23,7 +23,7 @@ const MyCreditSection = () => {
                 {myCredit}
               </span>
             ) : (
-              <div className='skeleton-style h-[26px] w-[70px] rounded-full sm:w-20' />
+              <div className='skeleton-style h-5 w-[60px] rounded-full sm:h-6 sm:w-20' />
             )}
           </div>
         </div>
