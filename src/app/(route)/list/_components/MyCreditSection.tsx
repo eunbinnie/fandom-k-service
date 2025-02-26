@@ -7,7 +7,7 @@ import Credit from 'public/icons/credit.svg';
 
 const MyCreditSection = () => {
   const isMounted = useComponentMount();
-  const myCredit = useCreditStore((state) => state.credit);
+  const myCredit = useCreditStore((state) => state.credit).toLocaleString();
 
   return (
     <section>
@@ -19,7 +19,7 @@ const MyCreditSection = () => {
           <div className='flex flex-wrap items-center gap-1'>
             <Image src={Credit} alt='크레딧' width={24} height={28} />
             {isMounted ? (
-              <span className='text-xl font-bold leading-[1.3] opacity-[0.87] sm:text-2xl'>
+              <span className='text-xl font-bold leading-[1.3] opacity-90 sm:text-2xl'>
                 {myCredit}
               </span>
             ) : (
