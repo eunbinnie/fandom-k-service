@@ -30,6 +30,7 @@ const config: Config = {
           primary: '#f7f7f8',
           secondary: '#8c92ab',
           pure: '#fff',
+          lavendar: '#f1eef9cc',
         },
       },
       fontFamily: {
