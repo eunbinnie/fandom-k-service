@@ -19,6 +19,7 @@ const Button = ({
 }: IButtonProps) => {
   return (
     <button
+      disabled={disabled}
       onClick={onClick}
       className={cn(
         'w-full bg-button-background px-4 py-2 text-sm font-bold',

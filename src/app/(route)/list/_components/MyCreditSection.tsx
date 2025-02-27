@@ -1,12 +1,18 @@
 'use client';
 
 import useComponentMount from '@/hooks/useComponentMount';
+import useModalState from '@/hooks/useModalState';
 import { useCreditStore } from '@/store';
 import Image from 'next/image';
 import Credit from 'public/icons/credit.svg';
 
+import Modal from '@/components/modal/Modal';
+
+import ChargeCreditModal from './ChargeCreditModal';
+
 const MyCreditSection = () => {
   const isMounted = useComponentMount();
+  const { active, handleModalOpen, handleModalClose } = useModalState();
   const myCredit = useCreditStore((state) => state.credit).toLocaleString();
 
   return (
@@ -29,14 +35,20 @@ const MyCreditSection = () => {
         </div>
         <button
           type='button'
-          onClick={() => {
-            alert('크레딧 충전 개발 예정');
-          }}
+          onClick={handleModalOpen}
           className='text-xs font-bold tracking-[0.65px] text-brand-orange sm:text-base sm:tracking-[0.8px] lg:mt-[11px]'
         >
           충전하기
         </button>
       </div>
+      <Modal
+        active={active}
+        title='크레딧 충전하기'
+        onClose={handleModalClose}
+        className='max-w-[327px]'
+      >
+        <ChargeCreditModal />
+      </Modal>
     </section>
   );
 };
