@@ -27,8 +27,10 @@ const Modal = ({
     let timer: NodeJS.Timeout | null;
 
     if (active) {
+      document.body.style.overflow = 'hidden';
       setVisible(true);
     } else {
+      document.body.style.overflow = 'auto';
       timer = setTimeout(() => {
         setVisible(false);
       }, 300);
@@ -44,7 +46,7 @@ const Modal = ({
   return (
     visible && (
       <Portal>
-        <div className='fixed inset-0'>
+        <div className='fixed inset-0 fill-mode-forwards'>
           <div
             className={cn(
               'size-full bg-black-background',
