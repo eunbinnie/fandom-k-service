@@ -84,6 +84,27 @@
     position: absolute;
     z-index: -1;
   }
+
+  input[type='radio'] {
+    flex-shrink: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    background-color: #8c92ab;
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 1px #8c92ab;
+    border-radius: 50%;
+    outline: none;
+    cursor: pointer;
+  }
+
+  input[type='radio']:checked {
+    background-color: #f96d69;
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 1px #f96d69;
+  }
 }
 
 @layer components {

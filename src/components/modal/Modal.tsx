@@ -56,8 +56,9 @@ const Modal = ({
           />
           <div
             className={cn(
-              'absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-lg bg-black-secondary px-4 pb-8 pt-6',
+              'absolute left-1/2 top-1/2 w-[calc(100%-48px)] -translate-x-1/2 -translate-y-1/2 rounded-lg bg-black-secondary px-4 pb-8 pt-6',
               active ? 'animate-fade-in' : 'animate-fade-out',
+              className,
             )}
           >
             <div className='flex flex-wrap items-center justify-between gap-2'>

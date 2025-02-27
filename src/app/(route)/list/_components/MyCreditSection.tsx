@@ -8,6 +8,8 @@ import Credit from 'public/icons/credit.svg';
 
 import Modal from '@/components/modal/Modal';
 
+import ChargeCreditModal from './ChargeCreditModal';
+
 const MyCreditSection = () => {
   const isMounted = useComponentMount();
   const { active, handleModalOpen, handleModalClose } = useModalState();
@@ -39,8 +41,13 @@ const MyCreditSection = () => {
           충전하기
         </button>
       </div>
-      <Modal active={active} title='크레딧 충전하기' onClose={handleModalClose}>
-        모달
+      <Modal
+        active={active}
+        title='크레딧 충전하기'
+        onClose={handleModalClose}
+        className='max-w-[327px]'
+      >
+        <ChargeCreditModal />
       </Modal>
     </section>
   );
