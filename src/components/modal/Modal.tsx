@@ -27,10 +27,8 @@ const Modal = ({
     let timer: NodeJS.Timeout | null;
 
     if (active) {
-      document.body.style.overflow = 'hidden';
       setVisible(true);
     } else {
-      document.body.style.overflow = 'auto';
       timer = setTimeout(() => {
         setVisible(false);
       }, 300);
