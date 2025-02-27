@@ -6,8 +6,6 @@ import { useCreditStore } from '@/store';
 import Image from 'next/image';
 import WhiteCreditIcon from 'public/icons/white-credit.svg';
 
-import { cn } from '@/lib/styleUtils';
-
 import Button from '@/components/button/Button';
 
 import CreditItem from './CreditItem';

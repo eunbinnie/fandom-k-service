@@ -1,5 +1,3 @@
-import { memo } from 'react';
-
 import Image from 'next/image';
 import CreditIcon from 'public/icons/credit.svg';
 
