@@ -5,6 +5,8 @@ import { useCreditStore } from '@/store';
 import Image from 'next/image';
 import Credit from 'public/icons/credit.svg';
 
+import Modal from '@/components/modal/Modal';
+
 const MyCreditSection = () => {
   const isMounted = useComponentMount();
   const myCredit = useCreditStore((state) => state.credit).toLocaleString();
@@ -37,6 +39,9 @@ const MyCreditSection = () => {
           충전하기
         </button>
       </div>
+      <Modal active title='크레딧 충전하기' onClose={() => {}}>
+        모달
+      </Modal>
     </section>
   );
 };
