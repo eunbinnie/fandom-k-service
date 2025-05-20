@@ -16,7 +16,7 @@ const MyCreditSection = () => {
   const myCredit = useCreditStore((state) => state.credit).toLocaleString();
 
   return (
-    <section>
+    <section className='container'>
       <div className='flex flex-wrap items-center justify-between gap-3 rounded-lg border border-white-lavendar p-5 sm:px-16 sm:py-9 lg:px-[78px] lg:pb-[42px] lg:pt-[30px]'>
         <div className='grid gap-2 sm:gap-[14px]'>
           <span className='text-2xs leading-normal opacity-60 sm:text-base sm:leading-normal'>

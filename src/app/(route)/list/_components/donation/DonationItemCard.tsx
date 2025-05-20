@@ -43,11 +43,15 @@ const DonationItemCard = ({ item }: IDonationItemCardProps) => {
           후원하기
         </Button>
       </div>
-      <div className='mt-3 grid gap-2'>
-        <span className='leading-[1.1] text-white-pure/40'>{subtitle}</span>
-        <h3 className='text-lg font-medium'>{title}</h3>
+      <div className='mt-[10px] grid gap-[6px] sm:mt-3 sm:gap-2'>
+        <span className='truncate text-2xs leading-[1.1] text-white-pure/40 sm:text-base sm:leading-[1.1]'>
+          {subtitle}
+        </span>
+        <h3 className='truncate text-sm font-medium leading-normal sm:text-lg'>
+          {title}
+        </h3>
       </div>
-      <div className='mt-6 grid gap-[7px]'>
+      <div className='mt-5 grid gap-[7px] sm:mt-6'>
         <div className='flex items-center justify-between'>
           <div className='flex items-center gap-[2px]'>
             <Image

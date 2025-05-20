@@ -4,10 +4,10 @@ import DonationSection from './_components/donation/DonationSection';
 const ListPage = () => {
   return (
     <>
-      <div className='container mb-[60px] mt-4 lg:mt-[50px]'>
+      <div className='mb-[60px] mt-4 lg:mt-[50px]'>
         <MyCreditSection />
+        <DonationSection />
       </div>
-      <DonationSection />
     </>
   );
 };

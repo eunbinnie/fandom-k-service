@@ -18,9 +18,22 @@ const DonationSwiper = ({ data }: IDonationSwiperProps) => {
   return (
     <Swiper
       modules={[Navigation]}
-      slidesPerView={4}
-      spaceBetween={24}
-      className='w-full max-w-[1200px]'
+      slidesPerView={1}
+      spaceBetween={8}
+      className='mx-auto w-full max-w-[1248px] !px-6'
+      breakpoints={{
+        448: {
+          slidesPerView: 2,
+        },
+        640: {
+          slidesPerView: 3,
+          spaceBetween: 16,
+        },
+        1024: {
+          slidesPerView: 4,
+          spaceBetween: 24,
+        },
+      }}
     >
       {data?.map((item) => (
         <SwiperSlide key={item.id}>
