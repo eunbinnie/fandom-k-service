@@ -1,3 +1,5 @@
+export type IdolGender = 'female' | 'male';
+
 export interface GetIdolsParams {
   cursor?: number;
   pageSize: number;
@@ -6,7 +8,7 @@ export interface GetIdolsParams {
 export interface IdolData {
   id: number;
   name: string;
-  gender: string;
+  gender: IdolGender;
   group: string;
   profilePicture: string;
   totalVotes: number;

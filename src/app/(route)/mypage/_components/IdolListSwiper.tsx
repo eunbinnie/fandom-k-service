@@ -15,8 +15,8 @@ import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 
-import type { IdolList } from '@/types/idols.interface';
-import { type IdolData } from '@/types/idols.interface';
+import type { IdolList } from '@/types/idols.type';
+import { type IdolData } from '@/types/idols.type';
 
 import IdolCard from './IdolCard';
 import IdolListSkeleton from './IdolListSkeleton';

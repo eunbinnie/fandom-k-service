@@ -8,7 +8,7 @@ import deleteIcon from 'public/icons/delete.svg';
 
 import { cn } from '@/lib/styleUtils';
 
-import type { IdolData } from '@/types/idols.interface';
+import type { IdolData } from '@/types/idols.type';
 
 import Check from '@/components/ui/Check';
 

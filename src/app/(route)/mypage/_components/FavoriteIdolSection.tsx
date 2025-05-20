@@ -2,6 +2,8 @@
 
 import { useFavoriteIdolStore } from '@/store';
 
+import Title from '@/components/common/Title';
+
 import FavoriteIdolList from './FavoriteIdolList';
 
 const FavoriteIdolSection = () => {
@@ -9,7 +11,7 @@ const FavoriteIdolSection = () => {
 
   return (
     <section>
-      <h2 className='title'>내가 관심 있는 아이돌</h2>
+      <Title>내가 관심 있는 아이돌</Title>
       <div className='mt-3 w-dvw text-center sm:mt-6 sm:w-full lg:mt-8'>
         {favoriteIdols.length > 0 ? (
           <FavoriteIdolList />

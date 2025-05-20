@@ -2,7 +2,7 @@ import { LOCAL_STORAGE_KEY } from '@/app/(route)/mypage/_constants/mypage.consta
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-import type { IdolData } from '@/types/idols.interface';
+import type { IdolData } from '@/types/idols.type';
 
 interface ISelectIdolStoreActionProps {
   idols: IdolData[];
