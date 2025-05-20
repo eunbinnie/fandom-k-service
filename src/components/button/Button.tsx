@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from 'react';
 
-import { cn } from '@/lib/styleUtils';
+import { cn } from '@/lib/utils';
 
 interface IButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,

@@ -8,6 +8,8 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import type { DonationData } from '@/types/donations.type';
 
+import DonationItemCard from './DonationItemCard';
+
 interface IDonationSwiperProps {
   data?: DonationData[];
 }
@@ -21,7 +23,9 @@ const DonationSwiper = ({ data }: IDonationSwiperProps) => {
       className='w-full max-w-[1200px]'
     >
       {data?.map((item) => (
-        <SwiperSlide key={item.id}>{item.title}</SwiperSlide>
+        <SwiperSlide key={item.id}>
+          <DonationItemCard item={item} />
+        </SwiperSlide>
       ))}
     </Swiper>
   );

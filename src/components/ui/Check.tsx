@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import CheckIcon from 'public/icons/check.svg';
 
-import { cn } from '@/lib/styleUtils';
+import { cn } from '@/lib/utils';
 
 interface ICheckProps {
   size?: 'big' | 'small';

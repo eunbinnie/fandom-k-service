@@ -2,7 +2,7 @@ import '@/styles/globals.css';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 
-import { cn } from '@/lib/styleUtils';
+import { cn } from '@/lib/utils';
 
 import Providers from './providers';
 

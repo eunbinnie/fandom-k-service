@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import CreditIcon from 'public/icons/credit.svg';
 
-import { cn } from '@/lib/styleUtils';
+import { cn } from '@/lib/utils';
 
 interface ICreditItemProps {
   credit: number;

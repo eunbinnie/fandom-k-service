@@ -6,7 +6,7 @@ import { useSelectIdolStore } from '@/store';
 import Image from 'next/image';
 import deleteIcon from 'public/icons/delete.svg';
 
-import { cn } from '@/lib/styleUtils';
+import { cn } from '@/lib/utils';
 
 import type { IdolData } from '@/types/idols.type';
 

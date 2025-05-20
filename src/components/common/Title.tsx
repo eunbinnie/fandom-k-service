@@ -1,4 +1,4 @@
-import { cn } from '@/lib/styleUtils';
+import { cn } from '@/lib/utils';
 
 interface ITitleProps {
   children: React.ReactNode;
