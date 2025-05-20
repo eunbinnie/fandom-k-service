@@ -1,4 +1,4 @@
-import MyCreditSection from './_components/MyCreditSection';
+import MyCreditSection from './_components/credit/MyCreditSection';
 
 const ListPage = () => {
   return (
