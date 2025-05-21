@@ -129,7 +129,6 @@ const IdolSwiper = ({ pageSize }: IdolSwiperProps) => {
         ))}
       </Swiper>
 
-      {/* TODO arrow button 480px이하에서 언마운트 */}
       {activeIndex > 0 && isPc && (
         <button
           ref={prevRef}

@@ -37,7 +37,9 @@ const DonationItemCard = ({ item }: IDonationItemCardProps) => {
         />
         <div className='absolute inset-0 bg-card-background'></div>
         <Button
-          onClick={() => {}}
+          onClick={() => {
+            alert('TODO 후원 기능 개발 예정');
+          }}
           className='absolute bottom-5 left-1/2 z-[1] w-[calc(100%-48px)] -translate-x-1/2 rounded-[3px]'
         >
           후원하기
