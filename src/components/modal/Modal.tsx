@@ -3,7 +3,7 @@ import { useEffect, useState, type PropsWithChildren } from 'react';
 import Image from 'next/image';
 import CloseButton from 'public/icons/close.svg';
 
-import { cn } from '@/lib/styleUtils';
+import { cn } from '@/lib/utils';
 
 import Portal from './Portal';
 
@@ -44,7 +44,7 @@ const Modal = ({
   return (
     visible && (
       <Portal>
-        <div className='fixed inset-0 fill-mode-forwards'>
+        <div className='fixed inset-0 z-[9999] fill-mode-forwards'>
           <div
             className={cn(
               'size-full bg-black-background',

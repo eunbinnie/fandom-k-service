@@ -57,6 +57,8 @@ const config: Config = {
           'radial-gradient(50% 50% at 50% 50%, rgba(2, 0, 14, 0.00) 0%, rgba(2, 0, 14, 0.18) 37.5%, rgba(2, 0, 14, 0.50) 79.5%, #02000E 100%)',
         'blue-background':
           'linear-gradient(180deg, #030615 0%, #051D31 42.67%, #051E32 53.12%, #051C30 74.27%, #030B1C 100%)',
+        'card-background':
+          'linear-gradient(180deg, rgba(0, 0, 0, 0.00) 58.9%, #000 100%)',
       },
       keyframes: {
         fadeIn: {

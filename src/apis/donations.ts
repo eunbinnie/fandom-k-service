@@ -1,11 +1,11 @@
-import type { IdolList } from '@/types/idols.type';
-import { type GetIdolsParams } from '@/types/idols.type';
+import type { DonationsList } from '@/types/donations.type';
 
 import instance from './axios';
 
-export const getIdols = async (params: GetIdolsParams) => {
+// 후원 목록 가져오기
+export const getDonations = async () => {
   try {
-    const res = await instance.get<IdolList>('/api/idols', { params: params });
+    const res = await instance.get<DonationsList>('/api/donations');
     const { data } = res;
 
     return data;

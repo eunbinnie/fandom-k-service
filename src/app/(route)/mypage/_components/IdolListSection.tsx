@@ -7,6 +7,7 @@ import Image from 'next/image';
 import addIcon from 'public/icons/add.svg';
 
 import Button from '@/components/button/Button';
+import Title from '@/components/common/Title';
 
 import IdolSwiper from './IdolListSwiper';
 
@@ -30,7 +31,7 @@ const IdolListSection = () => {
 
   return (
     <section>
-      <h2 className='title'>관심 있는 아이돌을 추가해보세요.</h2>
+      <Title>관심 있는 아이돌을 추가해보세요.</Title>
       <div className='mt-4 sm:mt-14 lg:mt-8'>
         <IdolSwiper pageSize={pageSize} />
       </div>
