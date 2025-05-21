@@ -19,12 +19,7 @@ const DonationSection = () => {
     <section className='mt-10 sm:mt-16 lg:mt-[50px]'>
       <Title className='container'>후원을 기다리는 조공</Title>
       <div className='mt-4 sm:mt-6 lg:mt-8'>
-        {isLoading ? (
-          // TODO 스켈레톤으로 변경 필요
-          <div className='container'>로딩 중</div>
-        ) : (
-          <DonationSwiper data={data?.list} />
-        )}
+        <DonationSwiper data={data?.list} isLoading={isLoading} />
       </div>
     </section>
   );
