@@ -1,9 +1,12 @@
+import useModalState from '@/hooks/useModalState';
 import Image from 'next/image';
 
 import type { DonationData } from '@/types/donations.type';
 
 import Button from '@/components/button/Button';
+import Modal from '@/components/modal/Modal';
 
+import DonationModal from './DonationModal';
 import CreditIcon from '/public/icons/credit.svg';
 
 interface IDonationItemCardProps {
@@ -14,6 +17,8 @@ const DonationItemCard = ({ item }: IDonationItemCardProps) => {
   const { idol, subtitle, title, deadline, receivedDonations, targetDonation } =
     item;
   const { name, profilePicture } = idol;
+
+  const { active, handleModalOpen, handleModalClose } = useModalState();
 
   // 후원 진행 비율
   const donationRatio = receivedDonations / targetDonation;
@@ -37,9 +42,7 @@ const DonationItemCard = ({ item }: IDonationItemCardProps) => {
         />
         <div className='absolute inset-0 bg-card-background'></div>
         <Button
-          onClick={() => {
-            alert('TODO 후원 기능 개발 예정');
-          }}
+          onClick={handleModalOpen}
           className='absolute bottom-5 left-1/2 z-[1] w-[calc(100%-48px)] -translate-x-1/2 rounded-[3px]'
         >
           후원하기
@@ -77,6 +80,14 @@ const DonationItemCard = ({ item }: IDonationItemCardProps) => {
           )}
         </div>
       </div>
+      <Modal
+        active={active}
+        onClose={handleModalClose}
+        title='후원하기'
+        className='max-w-[327px]'
+      >
+        <DonationModal item={item} />
+      </Modal>
     </>
   );
 };
