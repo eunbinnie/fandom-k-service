@@ -28,6 +28,7 @@ const DonationItemCard = ({ item }: IDonationItemCardProps) => {
   const endDate = new Date(deadline);
   const diffTime = endDate.getTime() - today.getTime();
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  const isExpired = diffDays < 0;
 
   return (
     <>
@@ -44,8 +45,9 @@ const DonationItemCard = ({ item }: IDonationItemCardProps) => {
         <Button
           onClick={handleModalOpen}
           className='absolute bottom-5 left-1/2 z-[1] w-[calc(100%-48px)] -translate-x-1/2 rounded-[3px]'
+          disabled={isExpired}
         >
-          후원하기
+          {isExpired ? '후원 마감' : '후원하기'}
         </Button>
       </div>
       <div className='mt-[10px] grid gap-[6px] sm:mt-3 sm:gap-2'>
@@ -69,7 +71,11 @@ const DonationItemCard = ({ item }: IDonationItemCardProps) => {
               {receivedDonations.toLocaleString()}
             </span>
           </div>
-          <span className='text-2xs'>{diffDays}일 남음</span>
+          {isExpired ? (
+            <span className='text-2xs'>후원 마감</span>
+          ) : (
+            <span className='text-2xs'>{diffDays}일 남음</span>
+          )}
         </div>
         <div className='relative h-[1px] w-full rounded-full bg-white-pure'>
           {donationRatio && (
