@@ -12,7 +12,7 @@ const config: Config = {
     extend: {
       colors: {
         brand: {
-          red: '#f96868',
+          red: '#ff2626',
           orange: '#f96d69',
           pink: '#fe5493',
           yellow: '#d2c030',
