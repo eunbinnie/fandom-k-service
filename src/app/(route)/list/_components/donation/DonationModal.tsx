@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 
+import { putDonation } from '@/apis/donations';
 import { useCreditStore } from '@/store';
+import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
 
 import type { DonationData } from '@/types/donations.type';
@@ -15,17 +17,30 @@ interface IDonationModalProps {
  * 후원하기 모달 컴포넌트
  */
 const DonationModal = ({ item }: IDonationModalProps) => {
-  const { title, subtitle, idol } = item;
+  const { id, title, subtitle, idol } = item;
   const { profilePicture, name } = idol;
   const myCredit = useCreditStore((state) => state.credit);
 
-  const [amount, setAmmount] = useState<string>('');
+  const [amount, setAmount] = useState<string>('');
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
+  const { mutate } = useMutation({
+    mutationFn: (amount: number) => putDonation(id, amount),
+    onError: (error: Error) => {
+      setError(true);
+      setErrorMessage(error.message);
+    },
+  });
+
   const handleChangeCredit = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setAmmount(value);
+    setAmount(value);
+  };
+
+  const handleDonation = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    mutate(Number(amount));
   };
 
   useEffect(() => {
@@ -44,7 +59,7 @@ const DonationModal = ({ item }: IDonationModalProps) => {
   }, [amount, myCredit]);
 
   return (
-    <div className='mt-6 grid gap-6'>
+    <form onSubmit={handleDonation} className='mt-6 grid gap-6'>
       <div className='mx-auto grid content-center gap-[10px]'>
         <div className='relative mx-auto aspect-[158/206] w-full max-w-[158px] overflow-hidden rounded-lg'>
           <Image
@@ -74,13 +89,13 @@ const DonationModal = ({ item }: IDonationModalProps) => {
         errorMessage={errorMessage}
       />
       <Button
-        onClick={() => {}}
+        type='submit'
         disabled={error || !amount}
         className='rounded-[3px]'
       >
         후원하기
       </Button>
-    </div>
+    </form>
   );
 };
 

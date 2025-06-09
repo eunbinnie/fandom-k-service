@@ -6,7 +6,7 @@ interface IButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     PropsWithChildren {
   isRounded?: boolean;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 const Button = ({
