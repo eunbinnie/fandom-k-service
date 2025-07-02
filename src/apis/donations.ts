@@ -1,3 +1,5 @@
+import { handleAxiosError } from '@/utils/handleAxiosError';
+
 import type { DonationsList } from '@/types/donations.type';
 
 import instance from './axios';
@@ -10,11 +12,8 @@ export const getDonations = async () => {
 
     return data;
   } catch (error) {
-    if (error instanceof Error) {
-      throw new Error(error.message);
-    } else {
-      throw new Error('An unknown error occurred');
-    }
+    handleAxiosError(error);
+    throw error;
   }
 };
 
@@ -28,14 +27,10 @@ export const putDonation = async (donationId: number, amount: number) => {
     const res = await instance.put(`/api/donations/${donationId}/contribute`, {
       amount,
     });
-    const { data } = res;
 
-    return data;
+    return res.data;
   } catch (error) {
-    if (error instanceof Error) {
-      throw new Error(error.message);
-    } else {
-      throw new Error('An unknown error occurred');
-    }
+    handleAxiosError(error);
+    throw error;
   }
 };
