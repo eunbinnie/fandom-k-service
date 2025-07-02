@@ -21,7 +21,10 @@ const DonationItemCard = ({ item }: IDonationItemCardProps) => {
   const { active, handleModalOpen, handleModalClose } = useModalState();
 
   // 후원 진행 비율
-  const donationRatio = receivedDonations / targetDonation;
+  const DONATION_RATIO = Math.min(
+    Math.floor((receivedDonations / targetDonation) * 100),
+    100,
+  );
 
   // 후원 마감 날짜까지 남은 일 수
   const today = new Date();
@@ -68,7 +71,7 @@ const DonationItemCard = ({ item }: IDonationItemCardProps) => {
               height={16}
             />
             <span className='text-2xs text-brand-orange'>
-              {receivedDonations.toLocaleString()}
+              {`${receivedDonations.toLocaleString()} (${DONATION_RATIO}%)`}
             </span>
           </div>
           {isExpired ? (
@@ -78,10 +81,10 @@ const DonationItemCard = ({ item }: IDonationItemCardProps) => {
           )}
         </div>
         <div className='relative h-[1px] w-full rounded-full bg-white-pure'>
-          {donationRatio && (
+          {DONATION_RATIO && (
             <div
-              className='absolute left-0 h-full rounded-full bg-brand-orange'
-              style={{ width: `${donationRatio}%` }}
+              className='absolute left-0 h-full rounded-full bg-brand-orange transition-all duration-300 ease-in-out'
+              style={{ width: `${DONATION_RATIO}%` }}
             />
           )}
         </div>

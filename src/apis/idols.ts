@@ -1,3 +1,5 @@
+import { handleAxiosError } from '@/utils/handleAxiosError';
+
 import type { IdolList } from '@/types/idols.type';
 import { type GetIdolsParams } from '@/types/idols.type';
 
@@ -10,10 +12,7 @@ export const getIdols = async (params: GetIdolsParams) => {
 
     return data;
   } catch (error) {
-    if (error instanceof Error) {
-      throw new Error(error.message);
-    } else {
-      throw new Error('An unknown error occurred');
-    }
+    handleAxiosError(error);
+    throw error;
   }
 };

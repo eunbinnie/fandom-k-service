@@ -1,12 +1,15 @@
 import type { PropsWithChildren } from 'react';
 
+import { LoaderCircle } from 'lucide-react';
+
 import { cn } from '@/lib/utils';
 
 interface IButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     PropsWithChildren {
   isRounded?: boolean;
-  onClick: () => void;
+  onClick?: () => void;
+  loading?: boolean;
 }
 
 const Button = ({
@@ -15,6 +18,7 @@ const Button = ({
   isRounded,
   onClick,
   disabled,
+  loading,
   ...rest
 }: IButtonProps) => {
   return (
@@ -29,7 +33,13 @@ const Button = ({
       )}
       {...rest}
     >
-      {children}
+      {loading ? (
+        <div className='flex items-center justify-center'>
+          <LoaderCircle color='white' className='animate-spin' />
+        </div>
+      ) : (
+        children
+      )}
     </button>
   );
 };

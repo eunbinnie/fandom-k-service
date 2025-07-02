@@ -1,3 +1,5 @@
+import { handleAxiosError } from '@/utils/handleAxiosError';
+
 import type { DonationsList } from '@/types/donations.type';
 
 import instance from './axios';
@@ -10,10 +12,25 @@ export const getDonations = async () => {
 
     return data;
   } catch (error) {
-    if (error instanceof Error) {
-      throw new Error(error.message);
-    } else {
-      throw new Error('An unknown error occurred');
-    }
+    handleAxiosError(error);
+    throw error;
+  }
+};
+
+/**
+ * 후원하기
+ * @param donationId 후원 ID
+ * @param amount 후원 데이터
+ */
+export const putDonation = async (donationId: number, amount: number) => {
+  try {
+    const res = await instance.put(`/api/donations/${donationId}/contribute`, {
+      amount,
+    });
+
+    return res.data;
+  } catch (error) {
+    handleAxiosError(error);
+    throw error;
   }
 };
