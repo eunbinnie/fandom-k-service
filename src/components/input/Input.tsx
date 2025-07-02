@@ -3,9 +3,17 @@ import { cn } from '@/lib/utils';
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   error?: boolean;
   errorMessage?: string;
+  success?: boolean;
+  successMessage?: string;
 }
 
-const Input = ({ error, errorMessage, ...rest }: InputProps) => {
+const Input = ({
+  error,
+  errorMessage,
+  success,
+  successMessage,
+  ...rest
+}: InputProps) => {
   return (
     <div>
       <div
@@ -23,6 +31,11 @@ const Input = ({ error, errorMessage, ...rest }: InputProps) => {
       {error && errorMessage && (
         <p className='mt-[6px] text-2xs font-medium text-brand-red'>
           {errorMessage}
+        </p>
+      )}
+      {success && successMessage && (
+        <p className='mt-[6px] text-2xs font-medium text-green-500'>
+          {successMessage}
         </p>
       )}
     </div>

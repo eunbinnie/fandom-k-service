@@ -4,6 +4,7 @@ import { persist } from 'zustand/middleware';
 interface CreditStore {
   credit: number;
   addCredit: (data: number) => void;
+  removeCredit: (data: number) => void;
 }
 
 export const useCreditStore = create<CreditStore>()(
@@ -11,6 +12,7 @@ export const useCreditStore = create<CreditStore>()(
     (set, get) => ({
       credit: 0,
       addCredit: (data: number) => set({ credit: get().credit + data }),
+      removeCredit: (data: number) => set({ credit: get().credit - data }),
     }),
     { name: 'credit' },
   ),

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { putDonation } from '@/apis/donations';
 import { useCreditStore } from '@/store';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 
 import type { DonationData } from '@/types/donations.type';
@@ -17,18 +17,27 @@ interface IDonationModalProps {
  * 후원하기 모달 컴포넌트
  */
 const DonationModal = ({ item }: IDonationModalProps) => {
+  const queryClient = useQueryClient();
+
   const { id, title, subtitle, idol } = item;
   const { profilePicture, name } = idol;
   const myCredit = useCreditStore((state) => state.credit);
+  const removeCredit = useCreditStore((state) => state.removeCredit);
 
   const [amount, setAmount] = useState<string>('');
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
-  const { mutate } = useMutation({
+  const { mutate, isSuccess, isError, isPending } = useMutation({
     mutationFn: (amount: number) => putDonation(id, amount),
+    onSuccess: () => {
+      const credit = Number(amount);
+      removeCredit(credit);
+      queryClient.invalidateQueries({ queryKey: ['donations'] });
+      setSuccessMessage(`${credit} 크레딧을 후원했습니다.`);
+    },
     onError: (error: Error) => {
-      setError(true);
       setErrorMessage(error.message);
     },
   });
@@ -38,9 +47,11 @@ const DonationModal = ({ item }: IDonationModalProps) => {
     setAmount(value);
   };
 
+  // 후원하기 폼 제출 핸들러
   const handleDonation = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    mutate(Number(amount));
+    const credit = Number(amount);
+    mutate(credit);
   };
 
   useEffect(() => {
@@ -48,7 +59,7 @@ const DonationModal = ({ item }: IDonationModalProps) => {
 
     if (credit > myCredit) {
       setError(true);
-      setErrorMessage('갖고 있는 크레딧보다 더 많이 후원할 수 없어요');
+      setErrorMessage('갖고 있는 크레딧보다 더 많이 후원할 수 없습니다.');
     } else if (credit < 0) {
       setError(true);
       setErrorMessage('크레딧은 0 이상이어야 합니다.');
@@ -85,12 +96,15 @@ const DonationModal = ({ item }: IDonationModalProps) => {
         value={amount}
         placeholder='크레딧 입력'
         onChange={handleChangeCredit}
-        error={error}
+        error={error || isError}
         errorMessage={errorMessage}
+        success={isSuccess}
+        successMessage={successMessage}
       />
       <Button
         type='submit'
-        disabled={error || !amount}
+        disabled={error || !amount || isPending}
+        loading={isPending}
         className='rounded-[3px]'
       >
         후원하기
